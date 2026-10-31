@@ -1,0 +1,89 @@
+<section class="section account-page">
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow"><a href="{{ routes.account_url }}">{{ 'customer.account.overview' | t }}</a></p>
+      <h1 class="page-title">{{ 'customer.order.title' | t: name: order.name }}</h1>
+      <p class="account-meta">{{ 'customer.order.date' | t: date: order.created_at | date: '%b %d, %Y' }}</p>
+    </header>
+
+    <div class="account-layout">
+      {%- render 'account-nav', active: 'account' -%}
+
+      <div>
+        <div class="account-card">
+          <p class="account-meta">
+            <strong>{{ 'customer.order.payment_status' | t }}:</strong>
+            <span class="pill--status{% if order.financial_status == 'paid' %} is-positive{% endif %}">{{ order.financial_status_label }}</span>
+          </p>
+          <p class="account-meta">
+            <strong>{{ 'customer.order.fulfillment_status' | t }}:</strong>
+            <span class="pill--status{% if order.fulfillment_status == 'fulfilled' %} is-positive{% endif %}">{{ order.fulfillment_status_label }}</span>
+          </p>
+
+          <table class="account-table">
+            <thead>
+              <tr>
+                <th>{{ 'customer.order.product' | t }}</th>
+                <th>{{ 'customer.order.price' | t }}</th>
+                <th>{{ 'customer.order.quantity' | t }}</th>
+                <th>{{ 'customer.order.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for line_item in order.line_items -%}
+                <tr>
+                  <td>
+                    {%- if line_item.product.url != blank -%}
+                      <a href="{{ line_item.product.url }}">{{ line_item.title }}</a>
+                    {%- else -%}
+                      {{ line_item.title }}
+                    {%- endif -%}
+                  </td>
+                  <td>{{ line_item.final_price | money }}</td>
+                  <td>{{ line_item.quantity }}</td>
+                  <td>{{ line_item.final_line_price | money }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+
+          <div class="cart-summary">
+            <div class="cart-summary__row">
+              <span>{{ 'customer.order.subtotal' | t }}</span>
+              <strong>{{ order.line_items_subtotal_price | money }}</strong>
+            </div>
+            {%- for shipping_method in order.shipping_methods -%}
+              <div class="cart-summary__row">
+                <span>{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</span>
+                <strong>{{ shipping_method.price | money }}</strong>
+              </div>
+            {%- endfor -%}
+            {%- for tax_line in order.tax_lines -%}
+              <div class="cart-summary__row">
+                <span>{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</span>
+                <strong>{{ tax_line.price | money }}</strong>
+              </div>
+            {%- endfor -%}
+            <div class="cart-summary__row">
+              <span>{{ 'customer.order.grand_total' | t }}</span>
+              <strong>{{ order.total_price | money }}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-layout" style="grid-template-columns: 1fr 1fr;">
+          <div class="account-card">
+            <h2 class="account-card__title">{{ 'customer.order.billing_address' | t }}</h2>
+            {{ order.billing_address | format_address }}
+          </div>
+          {%- if order.shipping_address -%}
+            <div class="account-card">
+              <h2 class="account-card__title">{{ 'customer.order.shipping_address' | t }}</h2>
+              {{ order.shipping_address | format_address }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

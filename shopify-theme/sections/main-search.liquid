@@ -1,0 +1,105 @@
+<section class="section">
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">{{ 'general.search.title' | t }}</p>
+      <h1 class="page-title">{{ 'templates.search.title' | t }}</h1>
+    </header>
+
+    <form
+      action="{{ routes.search_url }}"
+      method="get"
+      role="search"
+      class="search-form search-form--page"
+      data-predictive-form
+    >
+      <div class="search-form__field">
+        {%- render 'icon', name: 'search', size: 20 -%}
+        <input
+          class="search-form__input"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+          aria-label="{{ 'general.search.placeholder' | t }}"
+          autocomplete="off"
+          role="combobox"
+          aria-expanded="false"
+          aria-controls="ZelvoxDropdown"
+          aria-autocomplete="list"
+          data-search-input
+        >
+        <input type="hidden" name="type" value="product">
+        <button class="btn btn--primary btn--sm" type="submit">{{ 'general.search.submit' | t }}</button>
+      </div>
+      <div
+        class="search-suggest"
+        id="ZelvoxDropdown"
+        data-search-suggest
+        role="listbox"
+        aria-label="{{ 'general.search.suggestions' | t }}"
+        hidden
+      ></div>
+    </form>
+
+    {% paginate search.results by 12 %}
+      {%- if search.performed -%}
+        {%- if search.results_count > 0 -%}
+          <p class="result-count">
+            {{ 'templates.search.results_count' | t: count: search.results_count, terms: search.terms }}
+          </p>
+
+          <ul class="product-grid" style="--cols-desktop: 4; --cols-mobile: 2;">
+            {%- for item in search.results -%}
+              <li class="product-grid__item">
+                {%- if item.object_type == 'product' -%}
+                  {%- render 'product-card', card_product: item -%}
+                {%- else -%}
+                  <article class="card product-card">
+                    <a class="product-card__link" href="{{ item.url }}">
+                      <div class="product-card__media">
+                        {%- if item.image -%}
+                          <img
+                            class="product-card__img product-card__img--primary"
+                            src="{{ item.image | image_url: width: 720 }}"
+                            width="720"
+                            height="720"
+                            alt="{{ item.title | escape }}"
+                            loading="lazy"
+                          >
+                        {%- else -%}
+                          <div class="product-card__placeholder" aria-hidden="true">
+                            {%- render 'icon', name: 'mail', size: 30 -%}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                      <div class="product-card__info">
+                        <h3 class="product-card__title">{{ item.title }}</h3>
+                      </div>
+                    </a>
+                  </article>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          {% render 'pagination', paginate: paginate %}
+        {%- else -%}
+          <div class="empty-state">
+            <span class="empty-state__icon" aria-hidden="true">{%- render 'icon', name: 'search', size: 26 -%}</span>
+            <p class="empty-state__text">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
+            <a class="btn btn--outline btn--sm" href="{{ routes.all_products_collection_url }}">
+              {{ 'products.collection.view_all' | t }}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": []
+}
+{% endschema %}

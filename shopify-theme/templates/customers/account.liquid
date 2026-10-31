@@ -1,0 +1,64 @@
+<section class="section account-page">
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">{{ shop.name }}</p>
+      <h1 class="page-title">{{ 'customer.account.title' | t }}</h1>
+    </header>
+
+    <div class="account-layout">
+      {%- render 'account-nav', active: 'account' -%}
+
+      <div>
+        <div class="account-card">
+          <h2 class="account-card__title">{{ 'customer.account.details' | t }}</h2>
+          <p class="account-meta">
+            <strong>{{ 'customer.account.name' | t }}:</strong> {{ customer.name }}<br>
+            <strong>{{ 'customer.account.email' | t }}:</strong> {{ customer.email }}
+          </p>
+          {%- if customer.default_address -%}
+            <p class="account-meta">
+              <strong>{{ 'customer.account.default_address' | t }}:</strong><br>
+              {{ customer.default_address | format_address }}
+            </p>
+          {%- endif -%}
+          <a class="btn btn--outline btn--sm" href="{{ routes.account_addresses_url }}">
+            {{ 'customer.account.view_addresses' | t: count: customer.addresses_count }}
+          </a>
+        </div>
+
+        <div class="account-card">
+          <h2 class="account-card__title">{{ 'customer.account.orders' | t }}</h2>
+          {%- paginate customer.orders by 20 -%}
+            {%- if customer.orders.size > 0 -%}
+              <table class="account-table">
+                <thead>
+                  <tr>
+                    <th>{{ 'customer.orders.order' | t }}</th>
+                    <th>{{ 'customer.orders.date' | t }}</th>
+                    <th>{{ 'customer.orders.payment_status' | t }}</th>
+                    <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                    <th>{{ 'customer.orders.total' | t }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%- for order in customer.orders -%}
+                    <tr>
+                      <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                      <td>{{ order.created_at | date: '%b %d, %Y' }}</td>
+                      <td><span class="pill--status{% if order.financial_status == 'paid' %} is-positive{% endif %}">{{ order.financial_status }}</span></td>
+                      <td><span class="pill--status{% if order.fulfillment_status == 'fulfilled' %} is-positive{% endif %}">{{ order.fulfillment_status }}</span></td>
+                      <td>{{ order.total_price | money }}</td>
+                    </tr>
+                  {%- endfor -%}
+                </tbody>
+              </table>
+              {%- render 'pagination', paginate: paginate -%}
+            {%- else -%}
+              <p class="account-meta">{{ 'customer.account.no_orders' | t }}</p>
+            {%- endif -%}
+          {%- endpaginate -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

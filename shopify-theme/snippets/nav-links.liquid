@@ -1,0 +1,57 @@
+{%- comment -%}
+  Renders a navigation <ul>.
+  Accepts:
+  - menu: {linklist} linklist object (optional)
+  - class: {string} wrapper class (optional)
+  Falls back to the Zelvox default store structure when the selected menu is empty,
+  so navigation always renders while the merchant's menus are being set up.
+{%- endcomment -%}
+{%- liquid
+  assign list_class = class | default: 'menu'
+-%}
+<ul class="{{ list_class }}">
+  {%- if menu != blank and menu.links.size > 0 -%}
+    {%- for link in menu.links -%}
+      <li class="menu__item{% if link.links.size > 0 %} menu__item--has-children{% endif %}{% if link.active or link.child_active %} is-active{% endif %}">
+        <a href="{{ link.url }}" class="menu__link{% if link.active %} is-active{% endif %}">
+          {{ link.title }}
+          {%- if link.links.size > 0 -%}
+            {%- render 'icon', name: 'chevron-down', size: 14 -%}
+          {%- endif -%}
+        </a>
+        {%- if link.links.size > 0 -%}
+          <div class="menu__dropdown">
+            <ul class="menu__dropdown-list">
+              {%- for child in link.links -%}
+                <li>
+                  <a href="{{ child.url }}" class="menu__dropdown-link{% if child.active %} is-active{% endif %}">{{ child.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  {%- else -%}
+    {%- assign fallback_titles = 'Home,Shop All,Smartphones & Tablets,Audio & Headphones,Smartwatches & Wearables,Gaming Gear,Smart Home,Chargers & Accessories' | split: ',' -%}
+    {%- assign fallback_handles = 'home,all,smartphones,audio,wearables,gaming,smart-home,accessories' | split: ',' -%}
+    {%- for fallback_title in fallback_titles -%}
+      {%- assign fallback_handle = fallback_handles[forloop.index0] -%}
+      {%- if fallback_handle == 'home' -%}
+        {%- assign fallback_url = routes.root_url -%}
+      {%- elsif fallback_handle == 'all' -%}
+        {%- assign fallback_url = routes.all_products_collection_url -%}
+      {%- else -%}
+        {%- assign fallback_collection = collections[fallback_handle] -%}
+        {%- if fallback_collection.id != blank -%}
+          {%- assign fallback_url = fallback_collection.url -%}
+        {%- else -%}
+          {%- assign fallback_url = routes.all_products_collection_url -%}
+        {%- endif -%}
+      {%- endif -%}
+      <li class="menu__item">
+        <a href="{{ fallback_url }}" class="menu__link">{{ fallback_title }}</a>
+      </li>
+    {%- endfor -%}
+  {%- endif -%}
+</ul>

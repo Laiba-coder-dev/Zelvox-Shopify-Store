@@ -1,0 +1,104 @@
+<section class="section section--newsletter" id="Section-{{ section.id }}">
+  <div class="container">
+    <div class="newsletter">
+      <span class="newsletter__glow" aria-hidden="true"></span>
+      <div class="newsletter__inner reveal-self" data-reveal>
+        <div class="newsletter__copy">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="eyebrow eyebrow--pill">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="newsletter__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.text != blank -%}
+            <p class="newsletter__text">{{ section.settings.text }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="newsletter__form-wrap">
+          {%- form 'customer' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="newsletter__form">
+              <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">
+                {{ 'general.newsletter.label' | t }}
+              </label>
+              <span class="newsletter__icon" aria-hidden="true">
+                {%- render 'icon', name: 'mail', size: 18 -%}
+              </span>
+              <input
+                class="newsletter__input"
+                id="NewsletterEmail-{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                placeholder="{{ 'general.newsletter.placeholder' | t }}"
+                autocomplete="email"
+                required
+              >
+              <button class="btn btn--primary newsletter__submit" type="submit">
+                {{ section.settings.button_label | default: 'Subscribe' }}
+              </button>
+            </div>
+
+            {%- if form.posted_successfully? -%}
+              <p class="form-status form-status--success" role="status">
+                {%- render 'icon', name: 'check', size: 16 -%}
+                {{ 'general.newsletter.success' | t }}
+              </p>
+            {%- endif -%}
+            {%- if form.errors -%}
+              <p class="form-status form-status--error" role="alert">{{ 'general.newsletter.error' | t }}</p>
+            {%- endif -%}
+          {%- endform -%}
+
+          {%- if section.settings.note != blank -%}
+            <p class="newsletter__note">{{ section.settings.note }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter signup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Stay in the loop"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get drops before everyone else"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Join the Zelvox list for early access to new gadgets, restock alerts and subscriber-only pricing."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note",
+      "default": "No spam, ever. Unsubscribe in one click."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter signup"
+    }
+  ]
+}
+{% endschema %}

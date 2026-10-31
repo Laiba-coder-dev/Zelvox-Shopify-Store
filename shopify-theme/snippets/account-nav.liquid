@@ -1,0 +1,23 @@
+{%- comment -%}
+  Shared navigation for the authenticated customer templates (account, order,
+  addresses). Highlights the current section and ends with a logout action.
+  Accepts: active {string} one of 'account' | 'addresses' (optional)
+{%- endcomment -%}
+{%- assign active_nav = active | default: 'account' -%}
+<nav class="account-nav" aria-label="Account">
+  <a
+    href="{{ routes.account_url }}"
+    {% if active_nav == 'account' %}aria-current="page"{% endif %}
+  >
+    <span>{{ 'customer.account.overview' | t }}</span>
+  </a>
+  <a
+    href="{{ routes.account_addresses_url }}"
+    {% if active_nav == 'addresses' %}aria-current="page"{% endif %}
+  >
+    <span>{{ 'customer.account.addresses' | t }}</span>
+  </a>
+  <a href="{{ routes.account_logout_url }}">
+    <span>{{ 'customer.logout' | t }}</span>
+  </a>
+</nav>

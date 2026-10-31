@@ -1,0 +1,90 @@
+{%- comment -%}
+  Neo-Tech Luxe design tokens (plain CSS with Liquid interpolations).
+  Rendered inside a <style> tag by the theme layout and the password layout
+  so the store stays visually consistent everywhere.
+{%- endcomment -%}
+:root {
+    /* Surfaces */
+    --bg: {{ settings.color_bg }};
+    --bg-soft: {{ settings.color_bg_soft }};
+    --surface: {{ settings.color_surface }};
+    --surface-2: {{ settings.color_surface_2 }};
+    --text: {{ settings.color_text }};
+    --text-muted: {{ settings.color_text_muted }};
+    --border: {{ settings.color_border }};
+
+    /* Accents */
+    --accent: {{ settings.color_accent }};
+    --accent-2: {{ settings.color_accent_alt }};
+    --accent-contrast: {{ settings.color_accent_contrast }};
+    --success: {{ settings.color_success }};
+    --error: {{ settings.color_error }};
+
+    --grad-accent: linear-gradient(100deg, {{ settings.color_accent }} 0%, {{ settings.color_accent_alt }} 100%);
+    --grad-surface: linear-gradient(160deg, rgba(117,69,232,0.06), rgba(164,120,255,0.02));
+    --grad-hero: linear-gradient(135deg, #FFFFFF 0%, #F7F4FF 45%, #F3EEFF 100%);
+
+    /* Type */
+    --font-heading: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    --text-base: {{ settings.type_base_size }}px;
+    --text-xs: 0.75rem;
+    --text-sm: 0.85rem;
+    --text-md: calc(var(--text-base) * 1.1);
+    --text-lg: calc(var(--text-base) * 1.35);
+    --text-xl: calc(var(--text-base) * 1.7);
+    --text-2xl: calc(var(--text-base) * 2.15);
+    --text-3xl: calc(var(--text-base) * 2.8);
+    --text-4xl: calc(var(--text-base) * 3.6);
+
+    --heading-weight: {{ settings.type_heading_weight }};
+    --heading-transform: {{ settings.type_heading_transform }};
+    --btn-transform: {{ settings.button_transform }};
+
+    /* Layout */
+    --page-width: {{ settings.page_width }}px;
+    --gutter: {{ settings.gutter }}px;
+    --section-space: {{ settings.section_spacing }}px;
+    --radius-card: {{ settings.card_radius }}px;
+    --radius-btn: {{ settings.button_radius }}px;
+    --radius-pill: 999px;
+
+    /* Elevation — soft, tinted for light surfaces */
+    --shadow-1: 0 1px 2px rgba(36, 32, 51, 0.06);
+    --shadow-2: 0 14px 34px -14px rgba(36, 32, 51, 0.16);
+    --shadow-3: 0 32px 70px -28px rgba(36, 32, 51, 0.22);
+    --glow-accent: 0 18px 45px -18px rgba(117, 69, 232, 0.55);
+    --ring-accent: 0 0 0 4px rgba(117, 69, 232, 0.18);
+
+    /* Glass — light, subtle lavender tint */
+    --glass-bg: rgba(255,255,255,0.72);
+    --glass-border: rgba(36, 32, 51, 0.08);
+    --glass-blur: 16px;
+
+    --header-height: 72px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur: 280ms;
+
+    {% if settings.button_style == 'gradient' %}
+      --btn-bg: {{ settings.color_accent }};
+      --btn-bg-hover: {{ settings.color_accent_alt }};
+      --btn-fg: #FFFFFF;
+      --btn-fg-hover: #FFFFFF;
+      --btn-border: transparent;
+    {% elsif settings.button_style == 'outline' %}
+      --btn-bg: transparent;
+      --btn-bg-hover: {{ settings.color_accent }};
+      --btn-fg: {{ settings.color_accent }};
+      --btn-fg-hover: {{ settings.color_accent_contrast }};
+      --btn-border: {{ settings.color_accent }};
+    {% else %}
+      /* Solid primary buttons: white text on the purple accent clears the WCAG
+         4.5:1 contrast minimum (#7545E8 vs #FFFFFF ≈ 6.2:1). */
+      --btn-bg: {{ settings.color_accent }};
+      --btn-bg-hover: {{ settings.color_accent_alt }};
+      --btn-fg: {{ settings.color_accent_contrast }};
+      --btn-fg-hover: #FFFFFF;
+      --btn-border: {{ settings.color_accent }};
+    {% endif %}
+  }

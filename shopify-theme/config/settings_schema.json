@@ -1,0 +1,223 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Zelvox",
+    "theme_version": "1.0.0",
+    "theme_author": "Zelvox",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/en/manual/online-store/themes"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Bright Future Tech palette"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_soft",
+        "label": "Alternate background",
+        "default": "#F7F6FA"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Card surface",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_2",
+        "label": "Raised surface",
+        "default": "#F3EEFF"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#242033"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Muted text",
+        "default": "#777386"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders",
+        "default": "#E7E3F2"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Primary purple",
+        "default": "#7545E8"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_alt",
+        "label": "Soft purple",
+        "default": "#A478FF"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_contrast",
+        "label": "Accent text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "label": "Success",
+        "default": "#1FA97A"
+      },
+      {
+        "type": "color",
+        "id": "color_error",
+        "label": "Error",
+        "default": "#D6455A"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Headings use Space Grotesk and body text uses Inter."
+      },
+      {
+        "type": "range",
+        "id": "type_base_size",
+        "label": "Base font size",
+        "min": 14,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "type_heading_transform",
+        "label": "Heading capitalization",
+        "default": "none",
+        "options": [
+          { "value": "none", "label": "Normal" },
+          { "value": "uppercase", "label": "Uppercase" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "type_heading_weight",
+        "label": "Heading weight",
+        "default": "700",
+        "options": [
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semibold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1320
+      },
+      {
+        "type": "range",
+        "id": "gutter",
+        "label": "Side gutter",
+        "min": 16,
+        "max": 48,
+        "step": 2,
+        "unit": "px",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "label": "Space between sections",
+        "min": 40,
+        "max": 140,
+        "step": 4,
+        "unit": "px",
+        "default": 96
+      },
+      {
+        "type": "range",
+        "id": "card_radius",
+        "label": "Card corner radius",
+        "min": 0,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "default": 18
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "range",
+        "id": "button_radius",
+        "label": "Button corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "default": 12
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "default": "solid",
+        "options": [
+          { "value": "solid", "label": "Solid electric blue" },
+          { "value": "gradient", "label": "Blue to cyan gradient" },
+          { "value": "outline", "label": "Outline" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "button_transform",
+        "label": "Button text",
+        "default": "none",
+        "options": [
+          { "value": "none", "label": "Normal" },
+          { "value": "uppercase", "label": "Uppercase" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  }
+]

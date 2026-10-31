@@ -1,0 +1,141 @@
+{%- comment -%}
+  Renders a product card used by the New Arrivals / Bestsellers / collection grids.
+  Includes: primary + hover image, live Shopify badges (Sale / New arrival /
+  Sold out), price with genuine compare-at, Quick Add to Cart (with inline
+  variant selection), Quick View and a wishlist toggle.
+
+  Accepts:
+  - card_product: {product} product object (required)
+  - show_quick_add: {boolean} render the quick-add control (optional, default true)
+  - show_wishlist: {boolean} render the wishlist toggle (optional, default true)
+  - show_quick_view: {boolean} render the quick-view trigger (optional, default true)
+  - placeholder_index: {number} used for the onboarding placeholder state (optional)
+{%- endcomment -%}
+{%- liquid
+  assign product = card_product
+  assign placeholder = false
+  if product == blank
+    assign placeholder = true
+  endif
+
+  assign show_quick_add = show_quick_add | default: true
+  assign show_wishlist = show_wishlist | default: true
+  assign show_quick_view = show_quick_view | default: true
+
+  comment
+    Heading level for the card title. Defaults to h3 (nested under a section's h2);
+    grids with no section heading (e.g. a collection page under its h1) pass h2 so
+    the document outline never skips a level.
+  endcomment
+  assign heading_tag = heading | default: 'h3'
+
+  assign ratio = 1
+  if product.featured_image != blank
+    assign ratio = product.featured_image.aspect_ratio
+  endif
+
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+
+  assign is_new = false
+  if product.published_at != blank
+    assign now_ts = 'now' | date: '%s'
+    assign published_ts = product.published_at | date: '%s'
+    assign age_days = now_ts | minus: published_ts | divided_by: 86400
+    if age_days < 30
+      assign is_new = true
+    endif
+  endif
+
+  assign hover_image = blank
+  if product.media[1] != blank
+    assign hover_image = product.media[1]
+  endif
+-%}
+<article class="card product-card{% if placeholder %} product-card--placeholder{% endif %}" data-product-card data-product-id="{{ product.id }}">
+  <div class="product-card__media">
+    <a href="{{ product.url | default: '#' }}" class="product-card__link" {% unless placeholder %}aria-label="{{ product.title | escape }}"{% endunless %}>
+      {%- if product.featured_image != blank -%}
+        <img
+          class="product-card__img product-card__img--primary"
+          src="{{ product.featured_image | image_url: width: 720 }}"
+          srcset="{{ product.featured_image | image_url: width: 360 }} 360w, {{ product.featured_image | image_url: width: 540 }} 540w, {{ product.featured_image | image_url: width: 720 }} 720w, {{ product.featured_image | image_url: width: 960 }} 960w"
+          sizes="(min-width: 1200px) 25vw, (min-width: 750px) 33vw, 50vw"
+          width="720"
+          height="720"
+          alt="{{ product.featured_image.alt | escape }}"
+          loading="lazy"
+        >
+        {%- if hover_image != blank -%}
+          <img
+            class="product-card__img product-card__img--hover"
+            src="{{ hover_image | image_url: width: 720 }}"
+            width="720"
+            height="720"
+            alt="{{ hover_image.alt | escape }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+      {%- else -%}
+        <div class="product-card__placeholder" aria-hidden="true">
+          {%- render 'icon', name: 'bolt', size: 34 -%}
+        </div>
+      {%- endif -%}
+    </a>
+
+    <div class="product-card__badges">
+      {%- if on_sale -%}
+        <span class="badge badge--sale">{{ 'products.product.sale' | t }}</span>
+      {%- endif -%}
+      {%- if is_new -%}
+        <span class="badge badge--new">{{ 'products.product.new_arrival' | t }}</span>
+      {%- endif -%}
+      {%- if product.available == false -%}
+        <span class="badge badge--sold">{{ 'products.product.sold_out' | t }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if show_wishlist -%}
+      <div class="product-card__tools">
+        {%- render 'wishlist-btn', product: product -%}
+      </div>
+    {%- endif -%}
+
+    {%- if show_quick_view and placeholder == false -%}
+      <button
+        class="product-card__quickview"
+        type="button"
+        data-quick-view
+        data-product-handle="{{ product.handle }}"
+        aria-label="{{ 'products.product.quick_view' | t }}"
+      >
+        {%- render 'icon', name: 'eye', size: 18 -%}
+        <span>{{ 'products.product.quick_view' | t }}</span>
+      </button>
+    {%- endif -%}
+  </div>
+
+  <div class="product-card__info">
+    {%- if product.vendor != blank -%}
+      <p class="product-card__vendor">{{ product.vendor }}</p>
+    {%- endif -%}
+    <{{ heading_tag }} class="product-card__title">
+      <a href="{{ product.url | default: '#' }}" {% unless placeholder %}aria-label="{{ product.title | escape }}"{% endunless %}>
+        {{- product.title | default: 'Zelvox product' -}}
+      </a>
+    </{{ heading_tag }}>
+    <div class="product-card__price">
+      {%- render 'price', product: product -%}
+    </div>
+
+    {%- unless placeholder -%}
+      {%- if show_quick_add -%}
+        <div class="product-card__actions">
+          {%- render 'quick-add', product: product, card_id: product.id -%}
+        </div>
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+</article>

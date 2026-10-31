@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_bg }}">
+    <meta name="color-scheme" content="light">
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &middot; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &middot; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &middot; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {% if settings.favicon != blank %}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {% endif %}
+
+    {%- comment -%} Open Graph + Twitter card (real page/product data only) {%- endcomment -%}
+    {%- assign og_title = page_title | default: shop.name -%}
+    {%- assign og_description = page_description | default: shop.name -%}
+    <meta property="og:site_name" content="{{ shop.name | escape }}">
+    <meta property="og:title" content="{{ og_title | escape }}">
+    <meta property="og:description" content="{{ og_description | escape }}">
+    <meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta name="twitter:card" content="{% if template.name == 'product' %}summary_large_image{% else %}summary{% endif %}">
+    <meta name="twitter:title" content="{{ og_title | escape }}">
+    <meta name="twitter:description" content="{{ og_description | escape }}">
+    {%- if template.name == 'product' and product.featured_image != blank -%}
+      {%- capture og_image_url -%}{{ product.featured_image | image_url: width: 1200 }}{%- endcapture -%}
+      {%- assign og_image_url = og_image_url | strip -%}
+      {%- unless og_image_url contains '://' -%}{%- assign og_image_url = 'https:' | append: og_image_url -%}{%- endunless -%}
+      <meta property="og:image" content="{{ og_image_url }}">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:alt" content="{{ product.featured_image.alt | default: product.title | escape }}">
+      <meta name="twitter:image" content="{{ og_image_url }}">
+    {%- elsif settings.logo != blank -%}
+      {%- capture og_image_url -%}{{ settings.logo | image_url: width: 1200 }}{%- endcapture -%}
+      {%- assign og_image_url = og_image_url | strip -%}
+      {%- unless og_image_url contains '://' -%}{%- assign og_image_url = 'https:' | append: og_image_url -%}{%- endunless -%}
+      <meta property="og:image" content="{{ og_image_url }}">
+    {%- endif -%}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    >
+
+    <style>
+      {% render 'theme-tokens' %}
+    </style>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+    </script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name | handle }}">
+    <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    <main id="MainContent" class="main-content" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    {%- render 'cart-drawer' -%}
+    {%- render 'quick-view-modal' -%}
+
+    <script>
+      /* Commerce globals: real Shopify money format + translated strings for theme.js.
+         Build the money format from the active currency symbol and JSON-encode it
+         so it is a valid JS string (e.g. "${{amount}}"). */
+      {%- liquid
+        assign zelvox_currency_symbol = cart.currency.symbol | default: '$'
+        assign zelvox_money_format = zelvox_currency_symbol | append: '{{amount}}'
+      -%}
+      window.ZelvoxMoney = { format: {{ zelvox_money_format | json }}, symbol: {{ zelvox_currency_symbol | json }} };
+      window.ZelvoxStrings = {
+        cartEmpty: {{ 'templates.cart.empty' | t | json }},
+        continueShopping: {{ 'templates.cart.continue_shopping' | t | json }},
+        remove: {{ 'templates.cart.remove' | t | json }},
+        cartItemsOne: {{ 'general.cart.items' | t: count: 1 | json }},
+        cartItemsMany: {{ 'general.cart.items' | t: count: 2 | json }},
+        addressDeleteConfirm: {{ 'customer.addresses.delete_confirm' | t | json }},
+        loading: {{ 'products.product.loading' | t | json }},
+        added: {{ 'products.product.added' | t | json }},
+        addFailed: {{ 'products.product.add_failed' | t | json }},
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        viewDetails: {{ 'products.product.view_details' | t | json }},
+        chooseVariant: {{ 'products.product.choose_options' | t | json }},
+        stockIn: {{ 'products.product.stock_in' | t | json }},
+        stockOut: {{ 'products.product.stock_out' | t | json }},
+        noSuggestions: {{ 'general.search.no_suggestions' | t | json }},
+        loadFailed: {{ 'templates.search.no_results' | t: terms: '' | json }},
+        view_product: {{ 'products.product.view_product' | t | json }},
+        addToWishlist: {{ 'products.product.add_to_wishlist' | t | json }},
+        removeFromWishlist: {{ 'products.product.remove_from_wishlist' | t | json }}
+      };
+      window.Shopify = window.Shopify || {};
+      window.Shopify.routes = window.Shopify.routes || { root: {{ routes.root_url | json }} };
+    </script>
+
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </body>
+</html>

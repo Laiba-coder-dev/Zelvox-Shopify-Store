@@ -1,0 +1,156 @@
+{%- liquid
+  assign per_page = section.settings.products_per_page
+  assign show_filters = section.settings.show_filters
+  assign show_sort = section.settings.show_sort
+  assign active_tag_handles = current_tags | map: 'handle'
+
+  assign base_url = collection.url
+  assign current_sort = request.query_parameters.sort_by
+-%}
+<section class="section" data-collection-root>
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">{{ collection.handle | replace: '-', ' ' | capitalize }}</p>
+      <h1 class="page-title">{{ collection.title | default: 'Collection' }}</h1>
+      {%- if collection.description != blank -%}
+        <p class="page-lede">{{ collection.description }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if show_filters or show_sort -%}
+      <div class="collection-toolbar" data-collection-toolbar>
+        {%- if show_filters and collection.all_tags.size > 0 -%}
+          <div class="collection-toolbar__filters" data-filter-group>
+            <button
+              class="collection-toolbar__toggle"
+              type="button"
+              data-filter-toggle
+              aria-expanded="false"
+              aria-controls="ZelvoxFilters"
+            >
+              {%- render 'icon', name: 'filter', size: 18 -%}
+              <span>{{ 'products.collection.filter' | t }}</span>
+            </button>
+
+            <div class="collection-toolbar__pills" id="ZelvoxFilters" data-filter-panel>
+              {%- if current_tags.size > 0 -%}
+                <a class="pill pill--clear" href="{{ base_url }}">
+                  {%- render 'icon', name: 'close', size: 14 -%}
+                  <span>{{ 'products.collection.clear_all' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- for tag in collection.all_tags limit: 14 -%}
+                {%- assign tag_handle = tag | handle -%}
+                {%- if active_tag_handles contains tag_handle -%}
+                  {%- assign is_active = true -%}
+                {%- else -%}
+                  {%- assign is_active = false -%}
+                {%- endif -%}
+                {%- if is_active -%}
+                  {%- capture pill_url -%}{{ base_url }}{%- endcapture -%}
+                  {%- comment -%} Active tag link goes back to the unfiltered collection path {%- endcomment -%}
+                  {%- assign tag_path = tag_handle | prepend: '/' -%}
+                  {%- assign stripped = base_url | remove: tag_path -%}
+                  {%- assign pill_url = stripped -%}
+                {%- else -%}
+                  {%- capture pill_url -%}{{ collection.url }}/{{ tag_handle }}{%- if current_sort != blank %}?sort_by={{ current_sort }}{% endif -%}{%- endcapture -%}
+                {%- endif -%}
+                <a
+                  class="pill{% if is_active %} is-active{% endif %}"
+                  href="{{ pill_url }}"
+                  {% if is_active %}aria-current="true"{% endif %}
+                >
+                  {{- tag -}}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if show_sort -%}
+          <div class="collection-toolbar__sort">
+            <label class="visually-hidden" for="ZelvoxSortBy">{{ 'products.collection.sort_by' | t }}</label>
+            <form class="sort-form" action="{{ collection.url }}" method="get" data-sort-form>
+              {%- if current_tags.size > 0 -%}
+                {%- comment -%} Keep the active tag path when re-sorting {%- endcomment -%}
+              {%- endif -%}
+              <select class="sort-form__select" id="ZelvoxSortBy" name="sort_by" data-sort-select>
+                {%- for option in collection.sort_options -%}
+                  <option
+                    value="{{ option.value | escape }}"
+                    {% if option.value == current_sort %}selected{% endif %}
+                  >
+                    {{- option.name -}}
+                  </option>
+                {%- endfor -%}
+              </select>
+              {%- render 'icon', name: 'chevron-down', size: 16 -%}
+            </form>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {% paginate collection.products by per_page %}
+      {%- if collection.products.size > 0 -%}
+        <p class="result-count">
+          {{ 'products.collection.products_count' | t: count: collection.products_count }}
+        </p>
+
+        <ul class="product-grid" style="--cols-desktop: 4; --cols-mobile: 2;">
+          {%- for product in collection.products -%}
+            <li class="product-grid__item">
+              {%- render 'product-card', card_product: product, heading: 'h2' -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {% render 'pagination', paginate: paginate %}
+      {%- else -%}
+        <div class="empty-state">
+          <span class="empty-state__icon" aria-hidden="true">{%- render 'icon', name: 'tag', size: 26 -%}</span>
+          {%- if current_tags.size > 0 -%}
+            <p class="empty-state__text">{{ 'templates.collection.no_match' | t }}</p>
+            <a class="btn btn--outline btn--sm" href="{{ collection.url }}">
+              {{ 'products.collection.clear_all' | t }}
+            </a>
+          {%- else -%}
+            <p class="empty-state__text">{{ 'templates.collection.empty' | t }}</p>
+            <a class="btn btn--outline btn--sm" href="{{ routes.all_products_collection_url }}">
+              {{ 'products.collection.view_all' | t }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection list",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show tag filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show sort dropdown",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

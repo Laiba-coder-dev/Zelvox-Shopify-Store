@@ -1,0 +1,96 @@
+{%- liquid
+  assign icon_name = name
+  assign size = size | default: 20
+-%}
+<svg
+  class="icon icon--{{ icon_name }}"
+  width="{{ size }}"
+  height="{{ size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {%- case icon_name -%}
+    {%- when 'search' -%}
+      <circle cx="11" cy="11" r="7"/><path d="M20.2 20.2l-4-4"/>
+    {%- when 'account' -%}
+      <circle cx="12" cy="8.5" r="3.75"/><path d="M4.75 20c.9-3.4 3.8-5.25 7.25-5.25S18.35 16.6 19.25 20"/>
+    {%- when 'heart' -%}
+      <path d="M12 20.25s-7.25-4.4-7.25-9.6A4.15 4.15 0 0 1 12 7.6a4.15 4.15 0 0 1 7.25 3.05c0 5.2-7.25 9.6-7.25 9.6z"/>
+    {%- when 'bag' -%}
+      <path d="M5.75 7.75h12.5l1 12.5H4.75l1-12.5z"/><path d="M9 7.75V6.5a3 3 0 0 1 6 0v1.25"/>
+    {%- when 'menu' -%}
+      <path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/>
+    {%- when 'close' -%}
+      <path d="M6 6l12 12"/><path d="M18 6L6 18"/>
+    {%- when 'pause' -%}
+      <path d="M9 5v14"/><path d="M15 5v14"/>
+    {%- when 'play' -%}
+      <path d="M7 4.8v14.4L19.5 12 7 4.8z"/>
+    {%- when 'eye' -%}
+      <path d="M2.5 12S6 5.75 12 5.75 21.5 12 21.5 12 18 18.25 12 18.25 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>
+    {%- when 'filter' -%}
+      <path d="M4 6h16"/><path d="M7 12h10"/><path d="M10 18h4"/>
+    {%- when 'sort' -%}
+      <path d="M7 4v16"/><path d="M4 17l3 3 3-3"/><path d="M17 20V4"/><path d="M14 7l3-3 3 3"/>
+    {%- when 'check-circle' -%}
+      <circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>
+    {%- when 'alert-circle' -%}
+      <circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><path d="M12 16.25h.01"/>
+    {%- when 'zoom' -%}
+      <circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/><path d="M11 8.5v5"/><path d="M8.5 11h5"/>
+    {%- when 'arrow-right' -%}
+      <path d="M4.5 12h15"/><path d="M13.5 6l6 6-6 6"/>
+    {%- when 'arrow-left' -%}
+      <path d="M19.5 12h-15"/><path d="M10.5 6l-6 6 6 6"/>
+    {%- when 'chevron-left' -%}
+      <path d="M14.5 5.5L8 12l6.5 6.5"/>
+    {%- when 'chevron-right' -%}
+      <path d="M9.5 5.5L16 12l-6.5 6.5"/>
+    {%- when 'chevron-down' -%}
+      <path d="M5.5 9L12 15.5 18.5 9"/>
+    {%- when 'truck' -%}
+      <path d="M2.75 7.25h10.75v8.5H2.75z"/><path d="M13.5 10.25h3.75l3.5 3.75v1.75h-7.25z"/><circle cx="7" cy="17.75" r="1.9"/><circle cx="16.75" cy="17.75" r="1.9"/>
+    {%- when 'shield' -%}
+      <path d="M12 3.25l7 2.75v5.5c0 4.35-2.9 7.4-7 9.25-4.1-1.85-7-4.9-7-9.25V6l7-2.75z"/><path d="M8.75 12.25l2.25 2.25 4.25-4.5"/>
+    {%- when 'returns' -%}
+      <path d="M4.75 12a7.25 7.25 0 0 1 12.4-5.05L19.5 9.5"/><path d="M19.5 4.75v4.75h-4.75"/><path d="M19.25 12a7.25 7.25 0 0 1-12.4 5.05L4.5 14.5"/><path d="M4.5 19.25v-4.75h4.75"/>
+    {%- when 'headset' -%}
+      <path d="M4.75 14.5v-2.75a7.25 7.25 0 0 1 14.5 0v2.75"/><rect x="3" y="13.5" width="4" height="6.25" rx="1.6"/><rect x="17" y="13.5" width="4" height="6.25" rx="1.6"/>
+    {%- when 'lock' -%}
+      <rect x="4.75" y="10.5" width="14.5" height="9.75" rx="2.25"/><path d="M8.25 10.5V7.75a3.75 3.75 0 0 1 7.5 0v2.75"/>
+    {%- when 'tag' -%}
+      <path d="M4.25 4.75h6.5l9 9-6.5 6.5-9-9z"/><circle cx="8.1" cy="8.6" r="1.35"/>
+    {%- when 'mail' -%}
+      <rect x="3.25" y="5.5" width="17.5" height="13" rx="2.25"/><path d="M3.9 7.6l7.2 5.05a2 2 0 0 0 2.3 0l7.2-5.05"/>
+    {%- when 'check' -%}
+      <path d="M5 12.75l4.5 4.5L19 7.75"/>
+    {%- when 'star' -%}
+      <path d="M12 3.75l2.6 5.3 5.85.85-4.23 4.1 1 5.8L12 17.05l-5.22 2.75 1-5.8L3.52 9.9l5.85-.85z"/>
+    {%- when 'plus' -%}
+      <path d="M12 5v14"/><path d="M5 12h14"/>
+    {%- when 'minus' -%}
+      <path d="M5 12h14"/>
+    {%- when 'bolt' -%}
+      <path d="M13.5 3.25L5.75 13.5h5.4L10.5 20.75l7.75-10.25h-5.4z"/>
+    {%- when 'instagram' -%}
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.1" cy="6.9" r="1" fill="currentColor" stroke="none"/>
+    {%- when 'facebook' -%}
+      <path d="M14.6 8.6h2.3V5.3h-2.3c-2.4 0-4.1 1.8-4.1 4.2v1.9H8.2v3.3h2.3V21h3.3v-6.3h2.4l.5-3.3h-2.9V9.7c0-.7.4-1.1.8-1.1z"/>
+    {%- when 'x' -%}
+      <path d="M4.5 4.5h3.7l4.3 5.8 4.8-5.8h2.2l-6 7.2 6.5 7.8h-3.7l-4.6-6.2-5.2 6.2H4.3l6.3-7.5z"/>
+    {%- when 'youtube' -%}
+      <rect x="2.75" y="5.75" width="18.5" height="12.5" rx="3.75"/><path d="M10.4 9.6l4.9 2.65-4.9 2.65z"/>
+    {%- when 'tiktok' -%}
+      <path d="M14.25 3.75v10.1a3.65 3.65 0 1 1-3.15-3.6"/><path d="M14.25 3.75a4.9 4.9 0 0 0 4.9 4.9"/>
+    {%- when 'linkedin' -%}
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3.25"/><path d="M7.6 10.6v6"/><path d="M7.6 7.7v.1"/><path d="M11.6 16.6v-6"/><path d="M11.6 13c0-1.4 1-2.4 2.3-2.4s2.4 1 2.4 2.5v3.5"/>
+    {%- when 'pinterest' -%}
+      <circle cx="12" cy="12" r="8.5"/><path d="M10.3 18.7l1.6-5.6"/><path d="M9.5 10.1c0-1.7 1.4-3 3.3-3 1.7 0 2.9 1.1 2.9 2.7 0 2-1.2 3.8-2.8 3.8-.9 0-1.5-.7-1.3-1.6"/>
+  {%- endcase -%}
+</svg>

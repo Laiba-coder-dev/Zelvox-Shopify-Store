@@ -1,0 +1,21 @@
+<section class="section">
+  <div class="container container--narrow gift-card">
+    <p class="eyebrow eyebrow--pill">{{ shop.name }}</p>
+    <h1 class="page-title">{{ gift_card.initial_value | money }} gift card</h1>
+    <p class="page-lede">
+      Balance:
+      <strong>{{ gift_card.balance | money }}</strong>
+      {%- if gift_card.expired -%} — this card has expired{%- endif -%}
+    </p>
+
+    <div class="gift-card__code card">
+      <span class="gift-card__code-label">Code</span>
+      <code class="gift-card__code-value">{{ gift_card.code | format_code }}</code>
+    </div>
+
+    <div class="page-head__actions">
+      <a class="btn btn--primary" href="{{ shop.url }}">Start shopping</a>
+      <button class="btn btn--outline" type="button" onclick="window.print();">Print card</button>
+    </div>
+  </div>
+</section>

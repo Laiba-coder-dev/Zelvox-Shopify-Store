@@ -1,0 +1,32 @@
+{%- comment -%}
+  Renders a consistent section heading (eyebrow + title + subtitle + optional link).
+  Accepts:
+  - eyebrow: {string}
+  - title: {string}
+  - subtitle: {string}
+  - link: {url}
+  - link_label: {string}
+  - align: {string} 'left' | 'center'
+{%- endcomment -%}
+{%- liquid
+  assign heading_align = align | default: 'left'
+-%}
+<header class="section-head section-head--{{ heading_align }}" data-reveal>
+  <div class="section-head__text">
+    {%- if eyebrow != blank -%}
+      <p class="eyebrow">{{ eyebrow }}</p>
+    {%- endif -%}
+    {%- if title != blank -%}
+      <h2 class="section-head__title">{{ title }}</h2>
+    {%- endif -%}
+    {%- if subtitle != blank -%}
+      <p class="section-head__subtitle">{{ subtitle }}</p>
+    {%- endif -%}
+  </div>
+  {%- if link != blank and link_label != blank -%}
+    <a class="section-head__link" href="{{ link }}">
+      <span>{{ link_label }}</span>
+      {%- render 'icon', name: 'arrow-right', size: 16 -%}
+    </a>
+  {%- endif -%}
+</header>

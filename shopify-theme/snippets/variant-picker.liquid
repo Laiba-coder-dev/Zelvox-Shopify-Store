@@ -1,0 +1,56 @@
+{%- comment -%}
+  Renders option-based variant selectors for a product.
+  Emits a JSON blob of every variant so theme.js can resolve the selected
+  variant, its price, availability and inventory without a page reload.
+
+  Accepts:
+  - product: {product} product object (required)
+  - product_form_id: {string} id of the owning form (required)
+  - show_labels: {boolean} show option names above the inputs (optional, default true)
+{%- endcomment -%}
+{%- liquid
+  assign show_labels = show_labels | default: true
+-%}
+{%- if product != blank and product.has_only_default_variant == false and product.variants.size > 0 -%}
+  <div class="variant-picker" data-variant-picker data-product-id="{{ product.id }}">
+    {%- for option in product.options_with_values -%}
+      <fieldset class="variant-picker__group" data-option-index="{{ option.position | minus: 1 }}">
+        {%- if show_labels -%}
+          <legend class="variant-picker__label">
+            {{- option.name -}}
+            <span class="variant-picker__selected" data-option-selected="{{ option.position | minus: 1 }}">{{ option.selected_value }}</span>
+          </legend>
+        {%- endif -%}
+        <div class="variant-picker__values">
+          {%- assign option_index = option.position | minus: 1 -%}
+          {%- for value in option.values -%}
+            {%- liquid
+              assign input_id = product_form_id | append: '-opt-' | append: option.position | append: '-' | append: forloop.index
+              assign is_checked = false
+              if option.selected_value == value
+                assign is_checked = true
+              endif
+            -%}
+            <input
+              class="variant-picker__input visually-hidden"
+              type="radio"
+              id="{{ input_id }}"
+              name="{{ product_form_id }}-option-{{ option.position }}"
+              value="{{ value | escape }}"
+              data-option-input
+              data-option-position="{{ option_index }}"
+              {% if is_checked %}checked{% endif %}
+            >
+            <label class="variant-picker__value" for="{{ input_id }}">
+              {{- value -}}
+            </label>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+    {%- endfor -%}
+
+    <script type="application/json" data-variant-json>
+      {{- product.variants | json -}}
+    </script>
+  </div>
+{%- endif -%}

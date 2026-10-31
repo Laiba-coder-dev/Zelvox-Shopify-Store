@@ -1,0 +1,127 @@
+{%- comment -%}
+  Renders the floating 3D gadget stage for one hero slide.
+  Dependency-free: inline SVG "transparent renders" animated with CSS 3D
+  (perspective + float/sway + soft shadows + reflections + pointer parallax).
+
+  Accepts:
+  - visual: {string} smartphone | smart-home | gaming | launch | none
+  - uid: {string} unique id prefix for SVG gradient ids (required)
+  - align: {string} 'left' | 'center'
+{%- endcomment -%}
+{%- if visual != 'none' and visual != blank -%}
+  <div class="hero-stage hero-stage--{{ visual }}{% if align == 'center' %} hero-stage--center{% endif %}" data-stage aria-hidden="true">
+    {%- case visual -%}
+
+    {%- when 'smartphone' -%}
+      {%- comment -%} Premium smartphone, earbuds & accessories — electric-blue lighting. {%- endcomment -%}
+      <span class="hero-device" style="--dx: 66%; --dy: 46%; --dsize: min(23vw, 292px); --drot: -13deg; --ddepth: 1.5; --dfloat: 8s; --din: 0.1s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'phone', uid: uid -%}
+          <span class="hero-device__reflection">
+            {%- render 'hero-device-svg', kind: 'phone', uid: uid -%}
+          </span>
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 40%; --dy: 74%; --dsize: min(12vw, 152px); --drot: 9deg; --ddepth: 2.3; --dfloat: 6.4s; --din: 0.28s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'earbuds', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 88%; --dy: 76%; --dsize: min(13vw, 170px); --drot: -6deg; --ddepth: 2.7; --dfloat: 7.2s; --din: 0.42s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'charger', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+
+    {%- when 'smart-home' -%}
+      {%- comment -%} Smartwatch, wireless headphones, smart speaker & charger. {%- endcomment -%}
+      <span class="hero-device" style="--dx: 68%; --dy: 44%; --dsize: min(21vw, 268px); --drot: 11deg; --ddepth: 1.5; --dfloat: 7.6s; --din: 0.1s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'headphones', uid: uid -%}
+          <span class="hero-device__reflection">
+            {%- render 'hero-device-svg', kind: 'headphones', uid: uid -%}
+          </span>
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 43%; --dy: 40%; --dsize: min(8.5vw, 108px); --drot: -10deg; --ddepth: 2.1; --dfloat: 5.8s; --din: 0.26s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'watch', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 88%; --dy: 58%; --dsize: min(8.5vw, 112px); --drot: 7deg; --ddepth: 2.5; --dfloat: 6.8s; --din: 0.36s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'speaker', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 58%; --dy: 82%; --dsize: min(10vw, 128px); --drot: 4deg; --ddepth: 2.9; --dfloat: 8.4s; --din: 0.46s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'charger', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+
+    {%- when 'gaming' -%}
+      {%- comment -%} Gaming headset, mechanical keyboard, mouse & controller. {%- endcomment -%}
+      <span class="hero-device" style="--dx: 66%; --dy: 60%; --dsize: min(23vw, 296px); --drot: -7deg; --ddepth: 1.4; --dfloat: 8.2s; --din: 0.1s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'controller', uid: uid -%}
+          <span class="hero-device__reflection">
+            {%- render 'hero-device-svg', kind: 'controller', uid: uid -%}
+          </span>
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 80%; --dy: 26%; --dsize: min(13vw, 168px); --drot: 8deg; --ddepth: 1.9; --dfloat: 6.6s; --din: 0.26s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'headphones', uid: uid, with_mic: true -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 42%; --dy: 82%; --dsize: min(17vw, 220px); --drot: 5deg; --ddepth: 2.4; --dfloat: 7.4s; --din: 0.38s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'keyboard', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 90%; --dy: 78%; --dsize: min(6.5vw, 84px); --drot: -12deg; --ddepth: 2.9; --dfloat: 5.4s; --din: 0.5s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'mouse', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+
+    {%- when 'launch' -%}
+      {%- comment -%} Cinematic product-launch scene on a glowing podium. {%- endcomment -%}
+      <span class="hero-stage__podium"></span>
+      <span class="hero-stage__rays"></span>
+      <span class="hero-device" style="--dx: 66%; --dy: 44%; --dsize: min(19vw, 244px); --drot: -11deg; --ddepth: 1.4; --dfloat: 7.8s; --din: 0.1s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'phone', uid: uid -%}
+          <span class="hero-device__reflection">
+            {%- render 'hero-device-svg', kind: 'phone', uid: uid -%}
+          </span>
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 85%; --dy: 62%; --dsize: min(8vw, 102px); --drot: 9deg; --ddepth: 2.2; --dfloat: 6.2s; --din: 0.3s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'watch', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+      <span class="hero-device hero-device--satellite" style="--dx: 47%; --dy: 74%; --dsize: min(11vw, 142px); --drot: -5deg; --ddepth: 2.6; --dfloat: 6.9s; --din: 0.44s;">
+        <span class="hero-device__motion">
+          {%- render 'hero-device-svg', kind: 'earbuds', uid: uid -%}
+        </span>
+        <span class="hero-device__shadow"></span>
+      </span>
+
+    {%- endcase -%}
+  </div>
+{%- endif -%}

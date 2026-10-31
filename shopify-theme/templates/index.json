@@ -1,0 +1,211 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-carousel",
+      "settings": {
+        "height": "medium",
+        "text_align": "left",
+        "autoplay": true,
+        "interval": 3,
+        "transition": "cinematic",
+        "pause_on_hover": true,
+        "pause_on_focus": true,
+        "show_dots": true,
+        "show_arrows": true,
+        "show_devices": true,
+        "accessibility_label": "Zelvox highlights"
+      },
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "New generation",
+            "heading": "Technology, Elevated.",
+            "text": "Discover the devices shaping the way you live, work, and create.",
+            "primary_label": "Explore Collection",
+            "primary_link": "/collections/all",
+            "visual": "smartphone"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Smart living",
+            "heading": "Smarter Living Starts Here",
+            "text": "Smartwatches, wireless audio and smart-home devices that work together — and with everything else you own.",
+            "primary_label": "Shop Smart Devices",
+            "primary_link": "/collections/smart-devices",
+            "visual": "smart-home"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Gaming gear",
+            "heading": "Built for Your Next Level",
+            "text": "Gaming headsets, mechanical keyboards, mice and controllers engineered for the sessions that matter.",
+            "primary_label": "Explore Gaming",
+            "primary_link": "/collections/gaming",
+            "visual": "gaming"
+          }
+        },
+        "slide-4": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Just landed",
+            "heading": "Meet What's Next",
+            "text": "The newest gadgets, unboxed and tested by the Zelvox team — fresh releases in one cinematic line-up.",
+            "primary_label": "Shop New Arrivals",
+            "primary_link": "/collections/new-arrivals",
+            "visual": "launch"
+          }
+        }
+      },
+      "block_order": ["slide-1", "slide-2", "slide-3", "slide-4"]
+    },
+    "categories": {
+      "type": "shop-by-category",
+      "settings": {
+        "eyebrow": "Browse",
+        "heading": "Shop by category",
+        "subtitle": "Six curated collections, one standard of quality.",
+        "heading_align": "left",
+        "columns": 3,
+        "view_all_label": "View all"
+      },
+      "blocks": {
+        "cat-1": {
+          "type": "category",
+          "settings": { "title": "Smartphones & Tablets", "collection": "smartphones" }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": { "title": "Audio & Headphones", "collection": "audio" }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": { "title": "Smartwatches & Wearables", "collection": "wearables" }
+        },
+        "cat-4": {
+          "type": "category",
+          "settings": { "title": "Gaming Gear", "collection": "gaming" }
+        },
+        "cat-5": {
+          "type": "category",
+          "settings": { "title": "Smart Home", "collection": "smart-home" }
+        },
+        "cat-6": {
+          "type": "category",
+          "settings": { "title": "Chargers & Accessories", "collection": "accessories" }
+        }
+      },
+      "block_order": ["cat-1", "cat-2", "cat-3", "cat-4", "cat-5", "cat-6"]
+    },
+    "new_arrivals": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Just landed",
+        "heading": "New arrivals",
+        "subtitle": "The latest gadgets to land at Zelvox.",
+        "heading_align": "left",
+        "collection": "new-arrivals",
+        "products_to_show": 8,
+        "columns_desktop": "4",
+        "columns_mobile": "2",
+        "sort": "newest",
+        "show_view_all": true,
+        "view_all_label": "View all"
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Customer favourites",
+        "heading": "Bestsellers",
+        "subtitle": "The gadgets our customers keep coming back for.",
+        "heading_align": "left",
+        "collection": "bestsellers",
+        "products_to_show": 8,
+        "columns_desktop": "4",
+        "columns_mobile": "2",
+        "sort": "default",
+        "show_view_all": true,
+        "view_all_label": "View all"
+      }
+    },
+    "promo": {
+      "type": "promo-banner",
+      "settings": {
+        "eyebrow": "Limited time",
+        "heading": "Upgrade your setup for less",
+        "text": "Save up to 40% on selected audio, wearables and gaming gear. While stock lasts, with the same Zelvox warranty on every order.",
+        "content_align": "left",
+        "primary_label": "Shop the deals",
+        "secondary_label": "See all offers"
+      }
+    },
+    "why": {
+      "type": "value-props",
+      "settings": {
+        "eyebrow": "The Zelvox standard",
+        "heading": "Why shop with us",
+        "subtitle": "Premium hardware deserves premium service.",
+        "heading_align": "left"
+      },
+      "blocks": {
+        "value-1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free express delivery",
+            "text": "Free, tracked express shipping on every order over $99."
+          }
+        },
+        "value-2": {
+          "type": "item",
+          "settings": {
+            "icon": "returns",
+            "title": "30-day easy returns",
+            "text": "Changed your mind? Send it back within 30 days, no fuss."
+          }
+        },
+        "value-3": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "2-year warranty",
+            "text": "Every gadget is covered by the Zelvox warranty as standard."
+          }
+        },
+        "value-4": {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "title": "Real human support",
+            "text": "Talk to product specialists 7 days a week, before and after you buy."
+          }
+        }
+      },
+      "block_order": ["value-1", "value-2", "value-3", "value-4"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Stay in the loop",
+        "heading": "Get drops before everyone else",
+        "text": "Join the Zelvox list for early access to new gadgets, restock alerts and subscriber-only pricing.",
+        "button_label": "Subscribe",
+        "note": "No spam, ever. Unsubscribe in one click."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "new_arrivals",
+    "bestsellers",
+    "promo",
+    "why",
+    "newsletter"
+  ]
+}

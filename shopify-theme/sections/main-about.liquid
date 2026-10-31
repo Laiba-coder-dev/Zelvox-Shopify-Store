@@ -1,0 +1,90 @@
+<section class="section section--flush">
+  <div class="about-hero">
+    <div class="container about-hero__grid">
+      <div class="about-hero__text" data-reveal>
+        <p class="eyebrow">{{ 'pages.about.eyebrow' | t }}</p>
+        <h1 class="about-hero__title">{{ page.title | default: 'About Zelvox' }}</h1>
+        <p class="about-hero__lede">{{ 'pages.about.lede' | t }}</p>
+        <div class="about-hero__actions">
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">{{ 'pages.about.cta_shop' | t }}</a>
+          <a href="{{ routes.root_url | append: 'pages/faqs' }}" class="btn btn--outline">{{ 'pages.about.cta_faqs' | t }}</a>
+        </div>
+      </div>
+      <div class="about-hero__media" aria-hidden="true" data-reveal>
+        {%- render 'hero-device-svg', kind: 'phone', uid: 'about' -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if page.content != blank -%}
+  <section class="section">
+    <div class="container container--narrow">
+      <header class="section-head section-head--center" data-reveal>
+        <div class="section-head__text">
+          <p class="eyebrow">{{ shop.name }}</p>
+          <h2 class="section-head__title">{{ 'pages.about.story_heading' | t }}</h2>
+        </div>
+      </header>
+      <div class="rte" data-reveal>
+        {{ page.content }}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<section class="section section--values">
+  <div class="container">
+    {%- comment -%}
+      Translate BEFORE the render call. A filter inside a {% render %} tag's
+      argument list is not applied by every Liquid implementation, and the
+      arguments after it are dropped too — which rendered this heading as the
+      raw key "pages.about.values_heading" and forced align back to 'left'.
+    {%- endcomment -%}
+    {%- assign values_heading = 'pages.about.values_heading' | t -%}
+    {%- assign values_lede = 'pages.about.values_lede' | t -%}
+    {%- render 'section-head',
+      eyebrow: '',
+      title: values_heading,
+      subtitle: values_lede,
+      align: 'center'
+    -%}
+    <div class="values-grid" data-reveal>
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="value-card" {{ block.shopify_attributes }}>
+            <span class="value-card__icon" aria-hidden="true">
+              {%- render 'icon', name: block.settings.icon, size: 22 -%}
+            </span>
+            <h3 class="value-card__title">{{ block.settings.title }}</h3>
+            <p class="value-card__text">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About page",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "A value" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "A short line explaining this value." },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "check", "options": [
+          { "value": "check", "label": "Check" }, { "value": "truck", "label": "Truck" },
+          { "value": "returns", "label": "Returns" }, { "value": "shield", "label": "Shield" },
+          { "value": "star", "label": "Star" }, { "value": "leaf", "label": "Leaf" }
+        ]}
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "About page" }]
+}
+{% endschema %}

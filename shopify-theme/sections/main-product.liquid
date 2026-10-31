@@ -1,0 +1,252 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+
+  assign has_specs = false
+  assign spec_keys = 'brand,model,connectivity,battery_life,weight,warranty,color,compatibility,screen_size,storage' | split: ','
+  if product.metafields.custom.specifications != blank or product.metafields.specs != blank
+    assign has_specs = true
+  endif
+
+  assign related_products = blank
+  if product.collections.size > 0
+    assign related_products = product.collections.first.products | where: 'available'
+  endif
+-%}
+<section class="section" data-product-section data-product-id="{{ product.id }}">
+  <div class="container">
+    {%- if section.settings.show_breadcrumbs -%}
+      <nav class="breadcrumbs" aria-label="{{ 'general.accessibility.breadcrumb' | t }}">
+        <a href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a>
+        {%- if product.collections.size > 0 -%}
+          {%- assign parent_collection = product.collections.first -%}
+          <span aria-hidden="true">/</span>
+          <a href="{{ parent_collection.url }}">{{ parent_collection.title }}</a>
+        {%- endif -%}
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{ product.title }}</span>
+      </nav>
+    {%- endif -%}
+
+    <div class="product-layout">
+      {%- comment -%} Gallery {%- endcomment -%}
+      <div class="product-layout__media" data-gallery>
+        <div class="product-layout__main" data-gallery-main>
+          {%- if featured_media != blank -%}
+            <img
+              class="product-layout__img"
+              src="{{ featured_media | image_url: width: 1200 }}"
+              srcset="{{ featured_media | image_url: width: 600 }} 600w, {{ featured_media | image_url: width: 900 }} 900w, {{ featured_media | image_url: width: 1200 }} 1200w"
+              sizes="(min-width: 990px) 50vw, 100vw"
+              width="1200"
+              height="1200"
+              alt="{{ featured_media.alt | escape }}"
+              data-gallery-image
+              data-zoom-src="{{ featured_media | image_url: width: 2000 }}"
+            >
+            {%- if section.settings.enable_zoom -%}
+              <button class="product-layout__zoom-btn" type="button" data-zoom-toggle aria-label="{{ 'templates.product.zoom' | t }}">
+                {%- render 'icon', name: 'zoom', size: 20 -%}
+              </button>
+              <div class="product-layout__lens" data-zoom-lens hidden aria-hidden="true"></div>
+            {%- endif -%}
+          {%- else -%}
+            <div class="product-layout__placeholder" aria-hidden="true">
+              {%- render 'icon', name: 'bolt', size: 44 -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <ul class="product-layout__thumbs" data-gallery-thumbs>
+            {%- for media in product.media limit: 8 -%}
+              <li>
+                <button
+                  class="product-layout__thumb{% if media.id == featured_media.id %} is-active{% endif %}"
+                  type="button"
+                  data-gallery-thumb
+                  data-media-id="{{ media.id }}"
+                  data-media-url="{{ media | image_url: width: 1200 }}"
+                  data-media-zoom="{{ media | image_url: width: 2000 }}"
+                  data-media-alt="{{ media.alt | escape }}"
+                  aria-label="{{ 'templates.product.view_image' | t: number: forloop.number }}"
+                >
+                  <img src="{{ media | image_url: width: 240 }}" width="240" height="240" alt="{{ media.alt | escape }}" loading="lazy">
+                </button>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Details {%- endcomment -%}
+      <div class="product-layout__details">
+        {%- if product.vendor != blank -%}
+          <p class="eyebrow">{{ product.vendor }}</p>
+        {%- endif -%}
+        <h1 class="page-title">{{ product.title }}</h1>
+
+        <div class="product-layout__price" data-price-wrapper>
+          {%- render 'price', product: product, use_variant: true, target: true -%}
+        </div>
+
+        {%- assign block_type = product.metafields.custom.badge | default: product.type -%}
+        <div class="product-layout__meta">
+          <span class="product-sku">{{ 'templates.product.sku' | t }}: <span data-sku>{{ current_variant.sku | default: '—' }}</span></span>
+        </div>
+
+        {%- form 'product', product, id: 'ZelvoxProductForm', class: 'product-form', data-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+          {%- unless product.has_only_default_variant -%}
+            {%- render 'variant-picker', product: product, product_form_id: 'ZelvoxProductForm' -%}
+          {%- endunless -%}
+
+          <div class="product-form__stock" data-stock-wrapper>
+            {%- render 'stock-status', variant: current_variant -%}
+          </div>
+
+          <div class="product-form__row">
+            <div class="qty-field">
+              <label class="qty-field__label" for="Quantity-{{ section.id }}">{{ 'templates.product.quantity' | t }}</label>
+              <input class="qty-field__input" id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1">
+            </div>
+
+            <button
+              class="btn btn--primary btn--lg product-form__submit"
+              type="submit"
+              data-add-to-cart
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {%- if current_variant.available -%}
+                {{ 'templates.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'templates.product.sold_out' | t }}
+              {%- endif -%}
+            </button>
+          </div>
+
+          {%- if section.settings.show_buy_now and current_variant.available -%}
+            <button class="btn btn--lg btn--buy-now" type="button" name="checkout" data-buy-now>
+              <span>{{ 'templates.product.buy_now' | t }}</span>
+              {%- render 'icon', name: 'bolt', size: 16 -%}
+            </button>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <p class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+          {%- if form.posted_successfully -%}
+            <p class="form-status form-status--success" role="status">{{ 'templates.product.added' | t }}</p>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.show_shipping and section.settings.shipping_text != blank -%}
+          <div class="product-trust">
+            <div class="product-trust__row">
+              {%- render 'icon', name: 'truck', size: 18 -%}
+              <p>{{ section.settings.shipping_text }}</p>
+            </div>
+            {%- if section.settings.warranty_text != blank -%}
+              <div class="product-trust__row">
+                {%- render 'icon', name: 'shield', size: 18 -%}
+                <p>{{ section.settings.warranty_text }}</p>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.returns_text != blank -%}
+              <div class="product-trust__row">
+                {%- render 'icon', name: 'returns', size: 18 -%}
+                <p>{{ section.settings.returns_text }}</p>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if product.description != blank -%}
+          <div class="rte product-description" data-tabs-target="description">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+
+        {%- if has_specs -%}
+          <div class="product-specs">
+            <h2 class="product-specs__title">{{ 'templates.product.specifications' | t }}</h2>
+            <table class="product-specs__table">
+              {%- if product.metafields.custom.specifications != blank -%}
+                {%- for row in product.metafields.custom.specifications.value -%}
+                  <tr>
+                    <th scope="row">{{ row.k | default: row.key }}</th>
+                    <td>{{ row.v | default: row.value }}</td>
+                  </tr>
+                {%- endfor -%}
+              {%- elsif product.metafields.specs != blank -%}
+                {%- for row in product.metafields.specs.value -%}
+                  <tr>
+                    <th scope="row">{{ row.k | default: row.key }}</th>
+                    <td>{{ row.v | default: row.value }}</td>
+                  </tr>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for key in spec_keys -%}
+                  {%- assign val = product.metafields.custom[key] -%}
+                  {%- if val != blank -%}
+                    <tr>
+                      <th scope="row">{{ key | replace: '_', ' ' | capitalize_first }}</th>
+                      <td>{{ val }}</td>
+                    </tr>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </table>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_shipping_page and section.settings.shipping_page != blank -%}
+          <details class="product-accordion">
+            <summary>{{ 'templates.product.shipping_and_returns' | t }}{% render 'icon', name: 'chevron-down', size: 16 %}</summary>
+            <div class="product-accordion__body rte">{{ section.settings.shipping_page.content }}</div>
+          </details>
+        {%- endif -%}
+
+        {%- render 'wishlist-btn', product: product, style: 'full' -%}
+      </div>
+    </div>
+
+    {%- if related_products and related_products.size > 1 -%}
+      <div class="product-related" data-reveal>
+        <h2 class="product-related__title">{{ 'templates.product.related' | t }}</h2>
+        <ul class="product-grid" style="--cols-desktop: 4; --cols-mobile: 2;">
+          {%- assign shown = 0 -%}
+          {%- for rp in related_products -%}
+            {%- unless rp.id == product.id -%}
+              {%- if shown < 4 -%}
+                <li class="product-grid__item">
+                  {%- render 'product-card', card_product: rp -%}
+                </li>
+                {%- assign shown = shown | plus: 1 -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    { "type": "checkbox", "id": "show_breadcrumbs", "label": "Show breadcrumbs", "default": true },
+    { "type": "checkbox", "id": "enable_zoom", "label": "Enable image zoom", "default": true },
+    { "type": "checkbox", "id": "show_buy_now", "label": "Show Buy It Now button", "default": true },
+    { "type": "header", "content": "Trust badges" },
+    { "type": "checkbox", "id": "show_shipping", "label": "Show shipping & returns rows", "default": true },
+    { "type": "text", "id": "shipping_text", "label": "Shipping text", "default": "Free tracked express shipping on orders over $99" },
+    { "type": "text", "id": "warranty_text", "label": "Warranty text", "default": "2-year Zelvox warranty included as standard" },
+    { "type": "text", "id": "returns_text", "label": "Returns text", "default": "30-day easy returns, no questions asked" },
+    { "type": "header", "content": "Shipping information" },
+    { "type": "checkbox", "id": "show_shipping_page", "label": "Show shipping information accordion", "default": true },
+    { "type": "page", "id": "shipping_page", "label": "Shipping information page" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,177 @@
+{%- liquid
+  assign collection_handle = section.settings.collection
+  if collection_handle != blank
+    assign featured_collection = collections[collection_handle]
+  endif
+
+  if featured_collection.id != blank
+    assign products = featured_collection.products
+    assign view_url = featured_collection.url
+  else
+    assign products = collections.all.products
+    assign view_url = routes.all_products_collection_url
+  endif
+
+  assign sort_mode = section.settings.sort
+  if sort_mode == 'newest'
+    assign products = products | sort: 'published_at' | reverse
+  elsif sort_mode == 'price-asc'
+    assign products = products | sort: 'price'
+  elsif sort_mode == 'price-desc'
+    assign products = products | sort: 'price' | reverse
+  elsif sort_mode == 'title'
+    assign products = products | sort: 'title'
+  endif
+
+  assign columns_desktop = section.settings.columns_desktop
+  assign columns_mobile = section.settings.columns_mobile
+  assign products_to_show = section.settings.products_to_show
+-%}
+<section class="section" id="Section-{{ section.id }}">
+  <div class="container">
+    {%- render 'section-head',
+      eyebrow: section.settings.eyebrow,
+      title: section.settings.heading,
+      subtitle: section.settings.subtitle,
+      link: view_url,
+      link_label: section.settings.view_all_label,
+      align: section.settings.heading_align
+    -%}
+
+    {%- if products.size > 0 -%}
+      <ul
+        class="product-grid"
+        data-reveal
+        style="--cols-desktop: {{ columns_desktop }}; --cols-mobile: {{ columns_mobile }};"
+      >
+        {%- for product in products limit: products_to_show -%}
+          <li class="product-grid__item">
+            {%- render 'product-card', card_product: product -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.show_view_all and featured_collection.id != blank -%}
+        <div class="section-foot">
+          <a class="btn btn--outline" href="{{ view_url }}">
+            <span>{{ section.settings.view_all_label }}</span>
+            {%- render 'icon', name: 'arrow-right', size: 18 -%}
+          </a>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="empty-state">
+        <span class="empty-state__icon" aria-hidden="true">{%- render 'icon', name: 'tag', size: 26 -%}</span>
+        <p class="empty-state__text">{{ 'products.collection.empty' | t }}</p>
+        <a class="btn btn--outline btn--sm" href="{{ routes.all_products_collection_url }}">
+          {{ 'products.collection.view_all' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Handpicked"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "New arrivals"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The latest gadgets to land at Zelvox."
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "default": "4",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "label": "Sort products",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Collection order" },
+        { "value": "newest", "label": "Newest first" },
+        { "value": "price-asc", "label": "Price, low to high" },
+        { "value": "price-desc", "label": "Price, high to low" },
+        { "value": "title", "label": "Alphabetically" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "View all link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show view all button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all label",
+      "default": "View all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection"
+    }
+  ]
+}
+{% endschema %}

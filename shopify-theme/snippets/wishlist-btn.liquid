@@ -1,0 +1,33 @@
+{%- comment -%}
+  Renders a wishlist toggle button for a product.
+  Shopify has no native wishlist, so this persists to localStorage and mirrors
+  state to the header wishlist count. A merchant can later point the header
+  wishlist link at an app; this control keeps working either way.
+
+  Accepts:
+  - product: {product} product object (required)
+  - style: {string} 'icon' | 'full' (optional, default 'icon')
+{%- endcomment -%}
+{%- liquid
+  assign wishlist_style = style | default: 'icon'
+-%}
+{%- if product != blank -%}
+  <button
+    class="wishlist-btn wishlist-btn--{{ wishlist_style }}"
+    type="button"
+    data-wishlist-btn
+    data-product-id="{{ product.id }}"
+    data-product-handle="{{ product.handle }}"
+    data-product-title="{{ product.title | escape }}"
+    data-product-url="{{ product.url }}"
+    data-product-image="{% if product.featured_image != blank %}{{ product.featured_image | image_url: width: 200 }}{% endif %}"
+    data-product-price="{{ product.price }}"
+    aria-pressed="false"
+    aria-label="{{ 'products.product.add_to_wishlist' | t }}"
+  >
+    {%- render 'icon', name: 'heart', size: 18 -%}
+    {%- if wishlist_style == 'full' -%}
+      <span class="wishlist-btn__label" data-wishlist-label>{{ 'products.product.add_to_wishlist' | t }}</span>
+    {%- endif -%}
+  </button>
+{%- endif -%}

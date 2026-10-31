@@ -1,0 +1,343 @@
+{
+  "general": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you were looking for has moved or never existed.",
+      "link": "Back to home"
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "menu": "Menu",
+      "close": "Close",
+      "main_navigation": "Main navigation",
+      "footer_navigation": "Footer navigation",
+      "previous_slide": "Previous slide",
+      "next_slide": "Next slide",
+      "go_to_slide": "Go to slide {{ number }}",
+      "slides": "Slides",
+      "pause_slideshow": "Pause slideshow",
+      "play_slideshow": "Play slideshow",
+      "slide_announce": "Slide {{ number }} of {{ total }}: {{ heading }}",
+      "open_account": "Account",
+      "wishlist": "Wishlist",
+      "search": "Search",
+      "breadcrumb": "Breadcrumb",
+      "remove_item": "Remove item"
+    },
+    "breadcrumb": {
+      "home": "Home"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search gadgets, brands and collections",
+      "submit": "Search",
+      "suggestions": "Product suggestions",
+      "view_all_results": "View all results",
+      "suggestions_count": {
+        "one": "{{ count }} suggestion",
+        "other": "{{ count }} suggestions"
+      },
+      "no_suggestions": "No products match that search."
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "account": {
+      "account": "Account",
+      "sign_in": "Sign in"
+    },
+    "cart": {
+      "cart": "Cart",
+      "items": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      },
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue shopping"
+    },
+    "newsletter": {
+      "label": "Email address",
+      "placeholder": "you@example.com",
+      "submit": "Subscribe",
+      "success": "You're in. Check your inbox for a welcome note from Zelvox.",
+      "error": "Please enter a valid email address.",
+      "note": "No spam, ever. Unsubscribe in one click."
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{ number }}"
+    },
+    "navigation": {
+      "categories": "Categories",
+      "information": "Information",
+      "account": "Your account"
+    }
+  },
+  "products": {
+    "product": {
+      "sale": "Sale",
+      "new": "New",
+      "new_arrival": "New arrival",
+      "sold_out": "Sold out",
+      "from_price": "From {{ price }}",
+      "view_details": "View details",
+      "choose_options": "Choose options",
+      "quick_add": "Quick add",
+      "quick_view": "Quick view",
+      "add_to_cart": "Add to cart",
+      "buy_now": "Buy it now",
+      "loading": "Loading…",
+      "added": "Added to your cart.",
+      "add_failed": "Sorry, that item couldn't be added. Please try again.",
+      "add_to_wishlist": "Add to wishlist",
+      "remove_from_wishlist": "Remove from wishlist",
+      "specs": "Specifications",
+      "share": "Share",
+      "stock_in": "In stock and ready to ship",
+      "stock_low": "Only {{ count }} left in stock",
+      "stock_out": "Out of stock",
+      "stock_soon": "Incoming — backorder available",
+      "unit_price": "Unit price",
+      "view_product": "View product"
+    },
+    "collection": {
+      "view_all": "View all",
+      "empty": "No products in this collection yet.",
+      "filter": "Filter",
+      "clear_all": "Clear all",
+      "sort_by": "Sort by",
+      "products_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    }
+  },
+  "templates": {
+    "search": {
+      "title": "Search results",
+      "no_results": "No results found for \"{{ terms }}\". Check the spelling or try another keyword.",
+      "results_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      }
+    },
+    "cart": {
+      "title": "Your cart",
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "remove": "Remove",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue shopping",
+      "note": "Add a note to your order",
+      "note_placeholder": "Gift wrap, delivery notes…",
+      "taxes_and_shipping": "Taxes and shipping calculated at checkout",
+      "view_cart": "View cart",
+      "update": "Update cart",
+      "each": "each",
+      "increase": "Increase quantity",
+      "decrease": "Decrease quantity"
+    },
+    "collection": {
+      "empty": "No products found",
+      "no_match": "No products match the selected filters.",
+      "use_fewer_filters": "Use fewer filters"
+    },
+    "product": {
+      "vendor": "Vendor",
+      "description": "Description",
+      "quantity": "Quantity",
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "on_sale": "Sale",
+      "buy_now": "Buy it now",
+      "sku": "SKU",
+      "zoom": "Zoom image",
+      "view_image": "View image {{ number }}",
+      "specifications": "Specifications",
+      "shipping_and_returns": "Shipping & returns",
+      "related": "You may also like",
+      "added": "Added to your cart."
+    },
+    "page": {
+      "title": "Page"
+    }
+  },
+  "sections": {
+    "footer": {
+      "payment": "Payment methods",
+      "follow": "Follow Zelvox",
+      "copyright": "© {{ year }} Zelvox. All rights reserved."
+    }
+  },
+  "customer": {
+    "logout": "Log out",
+    "login_page": {
+      "title": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "sign_in": "Sign in",
+      "forgot_password": "Forgot your password?",
+      "recover_title": "Reset your password",
+      "recover_lede": "Enter your email and we'll send you a link to reset your password.",
+      "recover_submit": "Send reset link",
+      "recover_success": "We've sent you an email with a link to update your password.",
+      "create_account": "Create an account",
+      "cancel": "Cancel",
+      "error": "Incorrect email or password."
+    },
+    "recover": {
+      "title": "Reset your password",
+      "submit": "Submit",
+      "success": "We've sent you an email with a link to update your password."
+    },
+    "register": {
+      "title": "Create account",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create account",
+      "have_account": "Already have an account?",
+      "sign_in": "Log in"
+    },
+    "account": {
+      "overview": "Account",
+      "title": "Your account",
+      "details": "Account details",
+      "name": "Name",
+      "email": "Email",
+      "default_address": "Default address",
+      "view_addresses": "View addresses ({{ count }})",
+      "orders": "Order history",
+      "no_orders": "You haven't placed any orders yet.",
+      "addresses": "Addresses"
+    },
+    "orders": {
+      "order": "Order",
+      "date": "Date",
+      "payment_status": "Payment status",
+      "fulfillment_status": "Fulfillment status",
+      "total": "Total"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date": "Placed on {{ date }}",
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "grand_total": "Total",
+      "billing_address": "Billing address",
+      "shipping_address": "Shipping address",
+      "fulfillment_status": "Fulfillment status",
+      "payment_status": "Payment status",
+      "tracking": "Tracking link",
+      "no_tracking": "No tracking yet"
+    },
+    "addresses": {
+      "title": "Addresses",
+      "default": "Default",
+      "set_default": "Set as default address",
+      "add_new": "Add a new address",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you want to delete this address?",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country/region",
+      "province": "Province",
+      "zip": "Postal/ZIP code",
+      "phone": "Phone",
+      "save": "Save address",
+      "cancel": "Cancel",
+      "no_addresses": "You haven't saved any addresses yet."
+    },
+    "reset_password": {
+      "title": "Reset account password",
+      "lede": "Enter a new password for {{ email }}",
+      "password": "New password",
+      "password_confirm": "Confirm new password",
+      "submit": "Reset password"
+    },
+    "activate_account": {
+      "title": "Activate your account",
+      "lede": "Create your password to activate your account.",
+      "password": "New password",
+      "password_confirm": "Confirm new password",
+      "submit": "Activate account",
+      "cancel": "Decline invitation"
+    }
+  },
+  "pages": {
+    "wishlist": {
+      "title": "My Wishlist",
+      "lede": "Products you have saved for later. Your wishlist is stored in this browser.",
+      "empty": "Your wishlist is empty.",
+      "empty_cta": "Browse all products",
+      "count_one": "{{ count }} item",
+      "count_other": "{{ count }} items",
+      "remove": "Remove from wishlist"
+    },
+    "about": {
+      "eyebrow": "Our story",
+      "title": "About Zelvox",
+      "lede": "Zelvox is a gadget store for people who expect more from their devices. We test what we sell, price it fairly, and back it with real support.",
+      "story_heading": "We test what we sell",
+      "story_body": "Every product in the Zelvox range earns its place. We check build quality, battery life, connectivity and everyday performance before it goes on sale, so what arrives at your door matches what you ordered online.",
+      "values_heading": "What we stand for",
+      "values_lede": "Four commitments that shape every product decision we make.",
+      "cta_shop": "Shop all products",
+      "cta_faqs": "Read the FAQs"
+    },
+    "faqs": {
+      "eyebrow": "Support",
+      "title": "Frequently asked questions",
+      "lede": "Straight answers about ordering, shipping, returns and your Zelvox warranty.",
+      "contact_prompt": "Still need help?",
+      "contact_text": "Can not find what you are looking for? Send us a message and our team will reply by email.",
+      "contact_cta": "Contact us"
+    },
+    "contact": {
+      "eyebrow": "Get in touch",
+      "title": "Contact us",
+      "lede": "Questions about an order, a product or a return? Send us a message and we will reply by email.",
+      "form_heading": "Send us a message",
+      "form_note": "Fields marked with an asterisk are required.",
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send message",
+      "success": "Thanks for contacting us. Your message has been sent, and we will reply by email as soon as we can.",
+      "errors_heading": "Please fix the following before sending:",
+      "err_name": "Please enter your name.",
+      "err_email": "Please enter your email address.",
+      "err_email_invalid": "Please enter a valid email address, for example name@example.com.",
+      "err_subject": "Please enter a subject.",
+      "err_message": "Please enter a message.",
+      "details_heading": "Store details",
+      "email_label": "Email",
+      "phone_label": "Phone",
+      "address_label": "Address"
+    },
+    "shipping": {
+      "title": "Shipping & delivery"
+    },
+    "returns": {
+      "title": "Returns & warranty"
+    }
+  }
+}

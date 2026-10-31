@@ -1,0 +1,107 @@
+{%- comment -%}
+  Wishlist page. Shopify has no native wishlist, so this renders a grid driven by
+  the same localStorage store the heart toggles write to (see theme.js). A
+  merchant can later point the header wishlist link at an app; until then this
+  gives a real, functional destination for /pages/wishlist.
+{%- endcomment -%}
+<section class="section account-page" data-wishlist-page>
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">{{ shop.name }}</p>
+      <h1 class="page-title">{{ 'pages.wishlist.title' | t }}</h1>
+      <p class="account-meta">{{ 'pages.wishlist.lede' | t }}</p>
+    </header>
+
+    {%- comment -%} Populated client-side from localStorage; SSR shows the empty state. {%- endcomment -%}
+    <div class="wishlist-empty" data-wishlist-empty>
+      <div class="account-card account-card--center">
+        <p class="account-meta">{{ 'pages.wishlist.empty' | t }}</p>
+        <a class="btn btn--primary btn--lg" href="{{ routes.all_products_collection_url }}">{{ 'pages.wishlist.empty_cta' | t }}</a>
+      </div>
+    </div>
+
+    <div class="wishlist-grid" data-wishlist-grid hidden>
+      {%- comment -%} Cards are cloned from a product-card template below. {%- endcomment -%}
+      <div class="wishlist-source" data-wishlist-source hidden>
+        <article class="product-card">
+          <a class="product-card__link" data-wl-link href="{{ routes.all_products_collection_url }}">
+            <div class="product-card__media">
+              <img data-wl-image src="" alt="" loading="lazy" width="600" height="600">
+            </div>
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a data-wl-link href="{{ routes.all_products_collection_url }}" data-wl-title></a></h3>
+            <div class="product-card__price" data-wl-price></div>
+            <div class="product-card__actions">
+              <a class="btn btn--outline btn--sm" data-wl-link href="{{ routes.all_products_collection_url }}" data-wl-view></a>
+              <button class="btn btn--ghost btn--sm" type="button" data-wl-remove>{{ 'pages.wishlist.remove' | t }}</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var KEY = 'zelvox:wishlist';
+    var money = (window.ZelvoxMoney && window.ZelvoxMoney.format) || function (cents) { return '$' + (cents / 100).toFixed(2); };
+    var strings = window.ZelvoxStrings || {};
+    var page = document.querySelector('[data-wishlist-page]');
+    if (!page) return;
+    var grid = page.querySelector('[data-wishlist-grid]');
+    var source = page.querySelector('[data-wishlist-source]');
+    var empty = page.querySelector('[data-wishlist-empty]');
+    var cardTpl = source ? source.querySelector('.product-card') : null;
+
+    function render() {
+      var list = [];
+      try { list = JSON.parse(window.localStorage.getItem(KEY)) || []; } catch (e) { list = []; }
+      if (!list.length) {
+        empty.hidden = false;
+        grid.hidden = true;
+        grid.querySelectorAll('.product-card').forEach(function (n) { n.remove(); });
+        return;
+      }
+      empty.hidden = true;
+      grid.hidden = false;
+      grid.querySelectorAll('.product-card').forEach(function (n) { n.remove(); });
+      list.forEach(function (item) {
+        var card = cardTpl.cloneNode(true);
+        card.setAttribute('data-wl-id', item.id);
+        var img = card.querySelector('[data-wl-image]');
+        if (img) { img.src = item.image || ''; img.alt = item.title || ''; img.hidden = !item.image; }
+        card.querySelector('[data-wl-title]').textContent = item.title || '';
+        card.querySelector('[data-wl-price]').textContent = money(item.price || 0);
+        var view = card.querySelector('[data-wl-view]');
+        if (view) view.textContent = strings.view_product || 'View product';
+        Array.prototype.forEach.call(card.querySelectorAll('[data-wl-link]'), function (a) {
+          a.setAttribute('href', item.url || {{ routes.all_products_collection_url | json }});
+        });
+        var rm = card.querySelector('[data-wl-remove]');
+        if (rm) {
+          rm.addEventListener('click', function () {
+            var next = [];
+            try { next = JSON.parse(window.localStorage.getItem(KEY)) || []; } catch (e2) { next = []; }
+            next = next.filter(function (i) { return String(i.id) !== String(item.id); });
+            try { window.localStorage.setItem(KEY, JSON.stringify(next)); } catch (e3) { /* private mode */ }
+            document.dispatchEvent(new CustomEvent('zelvox:wishlist:change', { detail: { items: next } }));
+            render();
+          });
+        }
+        grid.appendChild(card);
+      });
+    }
+
+    render();
+    document.addEventListener('zelvox:wishlist:change', render);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "settings": []
+}
+{% endschema %}

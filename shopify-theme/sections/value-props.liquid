@@ -1,0 +1,159 @@
+<section class="section section--values" id="Section-{{ section.id }}">
+  <div class="container">
+    {%- render 'section-head',
+      eyebrow: section.settings.eyebrow,
+      title: section.settings.heading,
+      subtitle: section.settings.subtitle,
+      align: section.settings.heading_align
+    -%}
+
+    <div class="values-grid" data-reveal>
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="value-card" {{ block.shopify_attributes }}>
+            <span class="value-card__icon" aria-hidden="true">
+              {%- render 'icon', name: block.settings.icon, size: 22 -%}
+            </span>
+            <h3 class="value-card__title">{{ block.settings.title }}</h3>
+            <p class="value-card__text">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">{%- render 'icon', name: 'truck', size: 22 -%}</span>
+          <h3 class="value-card__title">Free express delivery</h3>
+          <p class="value-card__text">Free, tracked express shipping on every order over $99.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">{%- render 'icon', name: 'returns', size: 22 -%}</span>
+          <h3 class="value-card__title">30-day easy returns</h3>
+          <p class="value-card__text">Changed your mind? Send it back within 30 days, no fuss.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">{%- render 'icon', name: 'shield', size: 22 -%}</span>
+          <h3 class="value-card__title">2-year warranty</h3>
+          <p class="value-card__text">Every gadget is covered by the Zelvox warranty as standard.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">{%- render 'icon', name: 'headset', size: 22 -%}</span>
+          <h3 class="value-card__title">Real human support</h3>
+          <p class="value-card__text">Talk to product specialists 7 days a week, before and after you buy.</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why shop with us",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "The Zelvox standard"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why shop with us"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Premium hardware deserves premium service."
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Shipping" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "shield", "label": "Warranty" },
+            { "value": "headset", "label": "Support" },
+            { "value": "lock", "label": "Secure checkout" },
+            { "value": "tag", "label": "Price" },
+            { "value": "bolt", "label": "Speed" },
+            { "value": "star", "label": "Quality" },
+            { "value": "check", "label": "Checked" },
+            { "value": "mail", "label": "Newsletter" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free express delivery"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Free, tracked express shipping on every order over $99."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why shop with us",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free express delivery",
+            "text": "Free, tracked express shipping on every order over $99."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "returns",
+            "title": "30-day easy returns",
+            "text": "Changed your mind? Send it back within 30 days, no fuss."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "2-year warranty",
+            "text": "Every gadget is covered by the Zelvox warranty as standard."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "title": "Real human support",
+            "text": "Talk to product specialists 7 days a week, before and after you buy."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

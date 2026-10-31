@@ -1,0 +1,35 @@
+{%- comment -%}
+  Renders pagination controls. Accepts: paginate: {paginate} object
+{%- endcomment -%}
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" aria-label="{{ 'general.pagination.page' | t: number: paginate.current_page }}">
+    {%- if paginate.previous -%}
+      <a class="pagination__control" href="{{ paginate.previous.url }}">
+        {%- render 'icon', name: 'arrow-left', size: 16 -%}
+        <span>{{ 'general.pagination.previous' | t }}</span>
+      </a>
+    {%- else -%}
+      <span class="pagination__control is-disabled">
+        {%- render 'icon', name: 'arrow-left', size: 16 -%}
+        <span>{{ 'general.pagination.previous' | t }}</span>
+      </span>
+    {%- endif -%}
+
+    <span class="pagination__status">
+      {{ 'general.pagination.page' | t: number: paginate.current_page }}
+      / {{ paginate.pages }}
+    </span>
+
+    {%- if paginate.next -%}
+      <a class="pagination__control" href="{{ paginate.next.url }}">
+        <span>{{ 'general.pagination.next' | t }}</span>
+        {%- render 'icon', name: 'arrow-right', size: 16 -%}
+      </a>
+    {%- else -%}
+      <span class="pagination__control is-disabled">
+        <span>{{ 'general.pagination.next' | t }}</span>
+        {%- render 'icon', name: 'arrow-right', size: 16 -%}
+      </span>
+    {%- endif -%}
+  </nav>
+{%- endif -%}

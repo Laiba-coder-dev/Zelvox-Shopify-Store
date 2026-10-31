@@ -1,0 +1,333 @@
+{%- comment -%}
+  Renders a single floating gadget as an optimized inline SVG "transparent render".
+  Dependency-free alternative to a GLB/Three.js stage: crisp at any size, zero
+  network cost, and animated entirely with lightweight CSS 3D in base.css.
+
+  Accepts:
+  - kind: {string} phone | earbuds | charger | headphones | watch | keyboard | mouse | controller | speaker
+  - uid: {string} unique prefix for gradient/pattern ids (required — avoids SVG id collisions)
+  - with_mic: {boolean} adds a boom mic to the headphones (gaming headset)
+{%- endcomment -%}
+{%- liquid
+  assign g = uid | default: 'dev'
+-%}
+{%- case kind -%}
+
+{%- when 'phone' -%}
+<svg class="device-svg device-svg--phone" viewBox="0 0 220 440" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="ph-body-{{ g }}" x1="8" y1="0" x2="212" y2="440" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4F1FB"/><stop offset=".45" stop-color="#DAD2EE"/><stop offset="1" stop-color="#B9AEDA"/>
+    </linearGradient>
+    <linearGradient id="ph-edge-{{ g }}" x1="8" y1="4" x2="30" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#9C8FC6"/>
+    </linearGradient>
+    <linearGradient id="ph-screen-{{ g }}" x1="23" y1="19" x2="197" y2="421" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".28" stop-color="#E9E1FF"/><stop offset=".62" stop-color="#B79BFF"/><stop offset="1" stop-color="#6E42E6"/>
+    </linearGradient>
+    <radialGradient id="ph-wall-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(70 110) rotate(52) scale(230 300)">
+      <stop stop-color="#FFFFFF" stop-opacity=".85"/><stop offset=".55" stop-color="#DCCFFF" stop-opacity=".25"/><stop offset="1" stop-color="#7545E8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ph-glow-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(168 350) rotate(120) scale(180 220)">
+      <stop stop-color="#A478FF" stop-opacity=".8"/><stop offset="1" stop-color="#A478FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ph-sheen-{{ g }}" x1="0" y1="0" x2="150" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".75"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".08"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ph-cam-{{ g }}" x1="34" y1="30" x2="96" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A2540"/><stop offset="1" stop-color="#171328"/>
+    </linearGradient>
+    <radialGradient id="ph-lens-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50 44) rotate(45) scale(16)">
+      <stop stop-color="#5B4E86"/><stop offset=".55" stop-color="#241E3A"/><stop offset="1" stop-color="#0C0A16"/>
+    </radialGradient>
+  </defs>
+  <rect width="220" height="440" rx="38" fill="url(#ph-glow-{{ g }})" opacity=".35"/>
+  <rect x="8" y="4" width="204" height="432" rx="36" fill="url(#ph-body-{{ g }})" stroke="url(#ph-edge-{{ g }})" stroke-width="2"/>
+  <rect x="17" y="13" width="186" height="414" rx="29" fill="#1B1530"/>
+  <rect x="23" y="19" width="174" height="402" rx="25" fill="url(#ph-screen-{{ g }})"/>
+  <rect x="23" y="19" width="174" height="402" rx="25" fill="url(#ph-wall-{{ g }})"/>
+  <circle cx="150" cy="150" r="118" stroke="#FFFFFF" stroke-opacity=".28" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="82" stroke="#FFFFFF" stroke-opacity=".2" stroke-width="1.5"/>
+  <circle cx="70" cy="330" r="132" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="1.5"/>
+  <rect x="36" y="132" width="148" height="52" rx="16" fill="#FFFFFF" fill-opacity=".55"/>
+  <rect x="48" y="148" width="86" height="9" rx="4.5" fill="#5B4E86" fill-opacity=".55"/>
+  <rect x="48" y="164" width="120" height="7" rx="3.5" fill="#5B4E86" fill-opacity=".35"/>
+  <rect x="36" y="198" width="120" height="14" rx="7" fill="#FFFFFF" fill-opacity=".5"/>
+  <rect x="36" y="220" width="148" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".35"/>
+  <rect x="36" y="258" width="148" height="64" rx="20" fill="#FFFFFF" fill-opacity=".28"/>
+  <circle cx="70" cy="290" r="20" fill="#FFFFFF" fill-opacity=".55"/>
+  <rect x="100" y="278" width="70" height="9" rx="4.5" fill="#5B4E86" fill-opacity=".4"/>
+  <rect x="100" y="294" width="52" height="9" rx="4.5" fill="#5B4E86" fill-opacity=".3"/>
+  <rect x="34" y="30" width="62" height="62" rx="19" fill="url(#ph-cam-{{ g }})" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.5"/>
+  <circle cx="52" cy="48" r="10" fill="url(#ph-lens-{{ g }})" stroke="#A478FF" stroke-opacity=".8" stroke-width="2"/>
+  <circle cx="52" cy="48" r="3.4" fill="#EDE7FF" fill-opacity=".85"/>
+  <circle cx="78" cy="48" r="10" fill="url(#ph-lens-{{ g }})" stroke="#A478FF" stroke-opacity=".55" stroke-width="2"/>
+  <circle cx="78" cy="48" r="3.4" fill="#EDE7FF" fill-opacity=".6"/>
+  <circle cx="52" cy="74" r="10" fill="url(#ph-lens-{{ g }})" stroke="#A478FF" stroke-opacity=".55" stroke-width="2"/>
+  <circle cx="52" cy="74" r="3.4" fill="#EDE7FF" fill-opacity=".6"/>
+  <circle cx="80" cy="76" r="4.2" fill="#F4F1FF"/>
+  <rect x="212" y="128" width="6" height="48" rx="3" fill="#C9BFE6"/>
+  <rect x="212" y="188" width="6" height="30" rx="3" fill="#C9BFE6"/>
+  <rect x="2" y="150" width="6" height="60" rx="3" fill="#B4A8D6"/>
+  <path d="M17 13h186v414H17z" fill="url(#ph-sheen-{{ g }})" opacity=".6"/>
+</svg>
+
+{%- when 'earbuds' -%}
+<svg class="device-svg device-svg--earbuds" viewBox="0 0 210 170" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="eb-body-{{ g }}" x1="10" y1="20" x2="200" y2="160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBFAFF"/><stop offset=".5" stop-color="#E7E1F4"/><stop offset="1" stop-color="#C6BBE0"/>
+    </linearGradient>
+    <linearGradient id="eb-lid-{{ g }}" x1="0" y1="0" x2="210" y2="70" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#D8CFEC"/>
+    </linearGradient>
+    <linearGradient id="eb-bud-{{ g }}" x1="0" y1="0" x2="40" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".6" stop-color="#EDE8F8"/><stop offset="1" stop-color="#C9BFE2"/>
+    </linearGradient>
+    <linearGradient id="eb-stem-{{ g }}" x1="0" y1="0" x2="15" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#D5CCEA"/>
+    </linearGradient>
+    <radialGradient id="eb-sheen-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(60 40) rotate(40) scale(120 90)">
+      <stop stop-color="#FFFFFF" stop-opacity=".9"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="105" cy="120" rx="98" ry="44" fill="#A478FF" fill-opacity=".14"/>
+  <rect x="12" y="66" width="186" height="92" rx="44" fill="url(#eb-body-{{ g }})" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2"/>
+  <rect x="20" y="30" width="170" height="54" rx="26" fill="url(#eb-lid-{{ g }})" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="1.5"/>
+  <rect x="20" y="30" width="170" height="54" rx="26" fill="url(#eb-sheen-{{ g }})"/>
+  <path d="M28 60h154" stroke="#B6A9D6" stroke-opacity=".5" stroke-width="1.5"/>
+  <circle cx="105" cy="130" r="5.5" fill="#7545E8"/>
+  <circle cx="105" cy="130" r="10" fill="#7545E8" fill-opacity=".18"/>
+  <g>
+    <ellipse cx="72" cy="34" rx="17" ry="19" fill="url(#eb-bud-{{ g }})"/>
+    <rect x="64" y="44" width="15" height="34" rx="7.5" fill="url(#eb-stem-{{ g }})"/>
+    <ellipse cx="72" cy="34" rx="7" ry="8" fill="#DAD1EE"/>
+    <ellipse cx="67" cy="29" rx="4" ry="5" fill="#FFFFFF" fill-opacity=".9"/>
+  </g>
+  <g>
+    <ellipse cx="138" cy="28" rx="15" ry="17" fill="url(#eb-bud-{{ g }})" fill-opacity=".92"/>
+    <rect x="131" y="37" width="13" height="30" rx="6.5" fill="url(#eb-stem-{{ g }})" fill-opacity=".92"/>
+    <ellipse cx="138" cy="28" rx="6" ry="7" fill="#DAD1EE"/>
+    <ellipse cx="134" cy="24" rx="3.4" ry="4" fill="#FFFFFF" fill-opacity=".85"/>
+  </g>
+</svg>
+
+{%- when 'charger' -%}
+<svg class="device-svg device-svg--charger" viewBox="0 0 230 130" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="ch-side-{{ g }}" x1="30" y1="60" x2="200" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CFC5E8"/><stop offset="1" stop-color="#A99CCB"/>
+    </linearGradient>
+    <linearGradient id="ch-top-{{ g }}" x1="30" y1="20" x2="200" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".55" stop-color="#EFEAF9"/><stop offset="1" stop-color="#D5CCEA"/>
+    </linearGradient>
+    <linearGradient id="ch-rim-{{ g }}" x1="0" y1="60" x2="230" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A478FF" stop-opacity="0"/><stop offset=".5" stop-color="#7545E8" stop-opacity=".9"/><stop offset="1" stop-color="#A478FF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="ch-sheen-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(80 50) rotate(35) scale(110 60)">
+      <stop stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="115" cy="96" rx="106" ry="30" fill="#A478FF" fill-opacity=".18"/>
+  <ellipse cx="115" cy="80" rx="104" ry="40" fill="url(#ch-side-{{ g }})"/>
+  <ellipse cx="115" cy="66" rx="104" ry="42" fill="url(#ch-top-{{ g }})" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2"/>
+  <ellipse cx="115" cy="66" rx="104" ry="42" fill="url(#ch-sheen-{{ g }})"/>
+  <ellipse cx="115" cy="66" rx="62" ry="24" fill="#F1ECFB" stroke="url(#ch-rim-{{ g }})" stroke-width="2.5"/>
+  <ellipse cx="115" cy="66" rx="62" ry="24" fill="none" stroke="#7545E8" stroke-opacity=".25" stroke-width="6"/>
+  <path d="M119 52l-14 20h10l-4 16 16-22h-10l2-14z" fill="#7545E8"/>
+  <path d="M119 52l-14 20h10l-4 16 16-22h-10l2-14z" fill="#FFFFFF" fill-opacity=".35" transform="translate(-1 -1)"/>
+</svg>
+
+{%- when 'headphones' -%}
+<svg class="device-svg device-svg--headphones" viewBox="0 0 340 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="hp-band-{{ g }}" x1="40" y1="30" x2="300" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".5" stop-color="#E4DDF3"/><stop offset="1" stop-color="#BEB2DC"/>
+    </linearGradient>
+    <linearGradient id="hp-cup-{{ g }}" x1="20" y1="140" x2="110" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6F3FC"/><stop offset="1" stop-color="#C7BCE2"/>
+    </linearGradient>
+    <linearGradient id="hp-pad-{{ g }}" x1="0" y1="0" x2="60" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6E5FA0"/><stop offset="1" stop-color="#3B3260"/>
+    </linearGradient>
+    <linearGradient id="hp-accent-{{ g }}" x1="0" y1="170" x2="0" y2="254" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A478FF"/><stop offset="1" stop-color="#7545E8"/>
+    </linearGradient>
+    <radialGradient id="hp-sheen-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(90 70) rotate(40) scale(160 120)">
+      <stop stop-color="#FFFFFF" stop-opacity=".9"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="170" cy="294" rx="132" ry="20" fill="#A478FF" fill-opacity=".16"/>
+  <path d="M58 214V156c0-64 50-112 112-112s112 48 112 112v58" stroke="url(#hp-band-{{ g }})" stroke-width="28" stroke-linecap="round"/>
+  <path d="M58 214V156c0-64 50-112 112-112s112 48 112 112v58" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="8" stroke-linecap="round"/>
+  <path d="M72 158c8-50 46-86 98-86" stroke="#7545E8" stroke-opacity=".4" stroke-width="5" stroke-linecap="round"/>
+  <rect x="26" y="150" width="72" height="118" rx="36" fill="url(#hp-cup-{{ g }})" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2"/>
+  <rect x="242" y="150" width="72" height="118" rx="36" fill="url(#hp-cup-{{ g }})" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2"/>
+  <rect x="26" y="150" width="72" height="118" rx="36" fill="url(#hp-sheen-{{ g }})"/>
+  <rect x="242" y="150" width="72" height="118" rx="36" fill="url(#hp-sheen-{{ g }})"/>
+  <rect x="36" y="162" width="46" height="94" rx="23" fill="url(#hp-pad-{{ g }})"/>
+  <rect x="258" y="162" width="46" height="94" rx="23" fill="url(#hp-pad-{{ g }})"/>
+  <path d="M62 178v74" stroke="url(#hp-accent-{{ g }})" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M278 178v74" stroke="url(#hp-accent-{{ g }})" stroke-opacity=".6" stroke-width="4.5" stroke-linecap="round"/>
+  {%- if with_mic -%}
+  <path d="M62 258c0 30 22 48 54 48" stroke="#D5CCEA" stroke-width="12" stroke-linecap="round"/>
+  <path d="M62 258c0 30 22 48 54 48" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="4" stroke-linecap="round"/>
+  <rect x="108" y="292" width="36" height="21" rx="10.5" fill="#EDE8F8" stroke="#7545E8" stroke-opacity=".6"/>
+  <circle cx="126" cy="302.5" r="5" fill="#7545E8"/>
+  {%- endif -%}
+</svg>
+
+{%- when 'watch' -%}
+<svg class="device-svg device-svg--watch" viewBox="0 0 200 350" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="wt-strap-{{ g }}" x1="60" y1="0" x2="140" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EFEAF9"/><stop offset=".5" stop-color="#D3CAE8"/><stop offset="1" stop-color="#B6A9D6"/>
+    </linearGradient>
+    <linearGradient id="wt-case-{{ g }}" x1="24" y1="86" x2="176" y2="264" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".5" stop-color="#E6DFF3"/><stop offset="1" stop-color="#BEB2DC"/>
+    </linearGradient>
+    <linearGradient id="wt-screen-{{ g }}" x1="34" y1="96" x2="166" y2="254" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1C1730"/><stop offset="1" stop-color="#2A2148"/>
+    </linearGradient>
+    <radialGradient id="wt-sheen-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(70 120) rotate(45) scale(120 140)">
+      <stop stop-color="#FFFFFF" stop-opacity=".8"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="66" y="0" width="68" height="104" rx="24" fill="url(#wt-strap-{{ g }})"/>
+  <rect x="66" y="246" width="68" height="104" rx="24" fill="url(#wt-strap-{{ g }})"/>
+  <rect x="74" y="8" width="10" height="88" rx="5" fill="#FFFFFF" fill-opacity=".55"/>
+  <rect x="74" y="254" width="10" height="88" rx="5" fill="#FFFFFF" fill-opacity=".4"/>
+  <rect x="24" y="86" width="152" height="178" rx="48" fill="url(#wt-case-{{ g }})" stroke="#FFFFFF" stroke-opacity=".85" stroke-width="2"/>
+  <rect x="24" y="86" width="152" height="178" rx="48" fill="url(#wt-sheen-{{ g }})"/>
+  <rect x="34" y="96" width="132" height="158" rx="40" fill="url(#wt-screen-{{ g }})"/>
+  <circle cx="100" cy="175" r="46" stroke="#7545E8" stroke-opacity=".7" stroke-width="3"/>
+  <circle cx="100" cy="175" r="46" stroke="#A478FF" stroke-opacity=".25" stroke-width="8"/>
+  <path d="M100 175V139" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M100 175l26 18" stroke="#A478FF" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="100" cy="175" r="6" fill="#A478FF"/>
+  <circle cx="100" cy="139" r="2.5" fill="#FFFFFF"/>
+  <rect x="52" y="256" width="96" height="9" rx="4.5" fill="#7545E8" fill-opacity=".5"/>
+  <rect x="176" y="140" width="13" height="34" rx="6.5" fill="#D8CFEC"/>
+  <rect x="176" y="184" width="13" height="22" rx="6.5" fill="#C6BBE0"/>
+</svg>
+
+{%- when 'keyboard' -%}
+<svg class="device-svg device-svg--keyboard" viewBox="0 0 440 180" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="kb-body-{{ g }}" x1="0" y1="10" x2="440" y2="170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBFAFF"/><stop offset=".5" stop-color="#EAE4F6"/><stop offset="1" stop-color="#C9BFE2"/>
+    </linearGradient>
+    <linearGradient id="kb-deck-{{ g }}" x1="20" y1="30" x2="420" y2="130" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#EDE7F8"/>
+    </linearGradient>
+    <linearGradient id="kb-light-{{ g }}" x1="0" y1="0" x2="440" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A478FF" stop-opacity="0"/><stop offset=".5" stop-color="#7545E8" stop-opacity=".85"/><stop offset="1" stop-color="#A478FF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="kb-key-{{ g }}" x1="0" y1="0" x2="0" y2="26" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCD3EE"/>
+    </linearGradient>
+    <pattern id="kb-keys-{{ g }}" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect x="3" y="4" width="24" height="22" rx="6" fill="url(#kb-key-{{ g }})" stroke="#B6A9D6" stroke-width="1.2"/>
+      <rect x="6" y="6" width="18" height="4" rx="2" fill="#FFFFFF" fill-opacity=".8"/>
+    </pattern>
+  </defs>
+  <ellipse cx="220" cy="160" rx="200" ry="14" fill="#A478FF" fill-opacity=".14"/>
+  <rect x="6" y="16" width="428" height="148" rx="22" fill="url(#kb-body-{{ g }})" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2"/>
+  <rect x="6" y="16" width="428" height="6" rx="3" fill="url(#kb-light-{{ g }})"/>
+  <rect x="20" y="36" width="400" height="88" rx="12" fill="url(#kb-deck-{{ g }})"/>
+  <rect x="20" y="36" width="400" height="88" rx="10" fill="url(#kb-keys-{{ g }})"/>
+  <rect x="140" y="128" width="160" height="20" rx="7" fill="url(#kb-key-{{ g }})" stroke="#B6A9D6" stroke-width="1.2"/>
+  <rect x="36" y="128" width="88" height="20" rx="7" fill="url(#kb-key-{{ g }})" stroke="#7545E8" stroke-opacity=".6" stroke-width="1.4"/>
+  <rect x="316" y="128" width="88" height="20" rx="7" fill="url(#kb-key-{{ g }})" stroke="#B6A9D6" stroke-width="1.2"/>
+  <circle cx="410" cy="26" r="3" fill="#7545E8"/>
+</svg>
+
+{%- when 'mouse' -%}
+<svg class="device-svg device-svg--mouse" viewBox="0 0 150 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="ms-body-{{ g }}" x1="10" y1="0" x2="140" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".5" stop-color="#E8E2F5"/><stop offset="1" stop-color="#C2B7DE"/>
+    </linearGradient>
+    <linearGradient id="ms-edge-{{ g }}" x1="75" y1="8" x2="75" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".7"/><stop offset="1" stop-color="#B6A9D6" stop-opacity=".3"/>
+    </linearGradient>
+    <linearGradient id="ms-wheel-{{ g }}" x1="67" y1="46" x2="83" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7545E8"/><stop offset="1" stop-color="#5B32C4"/>
+    </linearGradient>
+    <radialGradient id="ms-sheen-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50 60) rotate(40) scale(110 130)">
+      <stop stop-color="#FFFFFF" stop-opacity=".85"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="75" cy="224" rx="60" ry="12" fill="#A478FF" fill-opacity=".14"/>
+  <path d="M75 8c34 0 58 26 58 68v76c0 44-24 72-58 72s-58-28-58-72V76c0-42 24-68 58-68z" fill="url(#ms-body-{{ g }})" stroke="url(#ms-edge-{{ g }})" stroke-width="2"/>
+  <path d="M75 8c34 0 58 26 58 68v76c0 44-24 72-58 72s-58-28-58-72V76c0-42 24-68 58-68z" fill="url(#ms-sheen-{{ g }})"/>
+  <path d="M22 82c15-13 34-19 53-19s38 6 53 19" stroke="#C6BBE0" stroke-width="3"/>
+  <rect x="67" y="44" width="16" height="36" rx="8" fill="url(#ms-wheel-{{ g }})"/>
+  <rect x="70" y="48" width="4" height="10" rx="2" fill="#FFFFFF" fill-opacity=".7"/>
+  <path d="M40 152c7 38 20 55 35 59" stroke="#7545E8" stroke-opacity=".5" stroke-width="4" stroke-linecap="round"/>
+  <path d="M110 152c-7 38-20 55-35 59" stroke="#A478FF" stroke-opacity=".4" stroke-width="4" stroke-linecap="round"/>
+</svg>
+
+{%- when 'controller' -%}
+<svg class="device-svg device-svg--controller" viewBox="0 0 340 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="ct-body-{{ g }}" x1="30" y1="30" x2="310" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".5" stop-color="#EAE4F6"/><stop offset="1" stop-color="#C4B9E0"/>
+    </linearGradient>
+    <radialGradient id="ct-sheen-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(150 80) rotate(30) scale(160 120)">
+      <stop stop-color="#FFFFFF" stop-opacity=".8"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ct-stick-{{ g }}" x1="0" y1="0" x2="0" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6E5FA0"/><stop offset="1" stop-color="#3B3260"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="170" cy="224" rx="130" ry="14" fill="#A478FF" fill-opacity=".14"/>
+  <ellipse cx="92" cy="176" rx="46" ry="56" fill="url(#ct-body-{{ g }})"/>
+  <ellipse cx="248" cy="176" rx="46" ry="56" fill="url(#ct-body-{{ g }})"/>
+  <rect x="46" y="44" width="248" height="134" rx="64" fill="url(#ct-body-{{ g }})" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2"/>
+  <rect x="46" y="44" width="248" height="134" rx="64" fill="url(#ct-sheen-{{ g }})"/>
+  <path d="M110 92h20m-10-10v20" stroke="#7C6BAF" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="150" cy="146" r="21" fill="url(#ct-stick-{{ g }})"/>
+  <circle cx="150" cy="146" r="11" fill="#4A3F72"/>
+  <circle cx="146" cy="142" r="4" fill="#FFFFFF" fill-opacity=".35"/>
+  <circle cx="196" cy="102" r="21" fill="url(#ct-stick-{{ g }})"/>
+  <circle cx="196" cy="102" r="11" fill="#4A3F72"/>
+  <circle cx="192" cy="98" r="4" fill="#FFFFFF" fill-opacity=".35"/>
+  <circle cx="252" cy="86" r="9" fill="#7545E8"/>
+  <circle cx="272" cy="104" r="9" fill="#A478FF"/>
+  <circle cx="252" cy="122" r="9" fill="#C6BBE0"/>
+  <circle cx="232" cy="104" r="9" fill="#B0A3D0"/>
+  <rect x="140" y="64" width="24" height="10" rx="5" fill="#D8CFEC"/>
+  <rect x="176" y="64" width="24" height="10" rx="5" fill="#D8CFEC"/>
+</svg>
+
+{%- when 'speaker' -%}
+<svg class="device-svg device-svg--speaker" viewBox="0 0 190 270" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+  <defs>
+    <linearGradient id="sp-body-{{ g }}" x1="20" y1="10" x2="170" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".5" stop-color="#EAE4F6"/><stop offset="1" stop-color="#C2B7DE"/>
+    </linearGradient>
+    <linearGradient id="sp-top-{{ g }}" x1="30" y1="18" x2="160" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6F3FC"/><stop offset="1" stop-color="#D3CAE8"/>
+    </linearGradient>
+    <linearGradient id="sp-accent-{{ g }}" x1="0" y1="82" x2="190" y2="82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A478FF" stop-opacity="0"/><stop offset=".5" stop-color="#7545E8" stop-opacity=".85"/><stop offset="1" stop-color="#A478FF" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="sp-mesh-{{ g }}" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.7" fill="#B6A9D6" fill-opacity=".5"/>
+    </pattern>
+    <radialGradient id="sp-sheen-{{ g }}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(70 80) rotate(45) scale(120 150)">
+      <stop stop-color="#FFFFFF" stop-opacity=".85"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="95" cy="254" rx="80" ry="14" fill="#A478FF" fill-opacity=".16"/>
+  <rect x="22" y="20" width="146" height="230" rx="60" fill="url(#sp-body-{{ g }})" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2"/>
+  <rect x="22" y="20" width="146" height="230" rx="60" fill="url(#sp-sheen-{{ g }})"/>
+  <ellipse cx="95" cy="34" rx="64" ry="18" fill="url(#sp-top-{{ g }})" stroke="#FFFFFF" stroke-opacity=".7"/>
+  <rect x="30" y="96" width="130" height="146" rx="46" fill="url(#sp-mesh-{{ g }})"/>
+  <path d="M34 84h122" stroke="url(#sp-accent-{{ g }})" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="95" cy="212" r="8" fill="#7545E8"/>
+  <circle cx="95" cy="212" r="14" fill="#7545E8" fill-opacity=".16"/>
+</svg>
+
+{%- endcase -%}

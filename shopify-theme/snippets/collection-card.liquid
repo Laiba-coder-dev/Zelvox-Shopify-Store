@@ -1,0 +1,63 @@
+{%- comment -%}
+  Renders a collection tile used by the "Shop by Category" section.
+  Accepts:
+  - collection_handle: {string} collection handle (optional)
+  - image: {image} optional image override
+  - title: {string} optional title override
+  - placeholder: {boolean} force the placeholder state (optional)
+{%- endcomment -%}
+{%- liquid
+  if collection_handle != blank
+    assign tile_collection = collections[collection_handle]
+  endif
+
+  assign tile_title = title
+  if tile_title == blank and tile_collection.id != blank
+    assign tile_title = tile_collection.title
+  endif
+  if tile_title == blank
+    assign tile_title = 'Category'
+  endif
+
+  assign tile_image = image
+  if tile_image == blank and tile_collection.id != blank
+    assign tile_image = tile_collection.featured_image
+  endif
+
+  assign tile_url = routes.all_products_collection_url
+  if tile_collection.id != blank
+    assign tile_url = tile_collection.url
+  endif
+-%}
+<a class="card collection-card{% if placeholder %} collection-card--placeholder{% endif %}" href="{{ tile_url }}">
+  <div class="collection-card__media">
+    {%- if tile_image != blank -%}
+      <img
+        class="collection-card__img"
+        src="{{ tile_image | image_url: width: 700 }}"
+        srcset="{{ tile_image | image_url: width: 360 }} 360w, {{ tile_image | image_url: width: 540 }} 540w, {{ tile_image | image_url: width: 700 }} 700w, {{ tile_image | image_url: width: 960 }} 960w"
+        sizes="(min-width: 1200px) 25vw, (min-width: 750px) 33vw, 50vw"
+        width="700"
+        height="700"
+        alt="{{ tile_title | escape }}"
+        loading="lazy"
+      >
+    {%- else -%}
+      <div class="collection-card__placeholder" aria-hidden="true">
+        {%- render 'icon', name: 'bolt', size: 34 -%}
+      </div>
+    {%- endif -%}
+    <span class="collection-card__scrim" aria-hidden="true"></span>
+  </div>
+  <div class="collection-card__body">
+    <span class="collection-card__title">{{ tile_title }}</span>
+    {%- if tile_collection.id != blank and tile_collection.all_products_count > 0 -%}
+      <span class="collection-card__count">
+        {{- 'products.collection.products_count' | t: count: tile_collection.all_products_count -}}
+      </span>
+    {%- endif -%}
+    <span class="collection-card__arrow" aria-hidden="true">
+      {%- render 'icon', name: 'arrow-right', size: 16 -%}
+    </span>
+  </div>
+</a>

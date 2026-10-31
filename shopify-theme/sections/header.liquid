@@ -1,0 +1,309 @@
+{%- liquid
+  assign main_menu = linklists[section.settings.menu]
+  assign logo_width = section.settings.logo_width | default: 150
+  assign wishlist_url = section.settings.wishlist_page
+  if wishlist_url == blank
+    assign wishlist_url = '/pages/wishlist'
+  endif
+  assign logo_text = section.settings.logo_text | default: 'Zelvox'
+-%}
+<header class="site-header{% if section.settings.sticky %} site-header--sticky{% endif %}" data-site-header>
+  <div class="container site-header__inner">
+    {%- comment -%} Mobile: menu trigger {%- endcomment -%}
+    <button
+      class="icon-btn site-header__trigger"
+      type="button"
+      aria-expanded="false"
+      aria-controls="ZelvoxMobileNav"
+      data-nav-toggle
+    >
+      {%- render 'icon', name: 'menu', size: 22 -%}
+      <span class="visually-hidden">{{ 'general.accessibility.menu' | t }}</span>
+    </button>
+
+    {%- comment -%} Logo {%- endcomment -%}
+    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        <img
+          class="site-header__logo-img"
+          src="{{ section.settings.logo | image_url: width: 600 }}"
+          alt="{{ shop.name | escape }}"
+          width="{{ logo_width }}"
+          height="{{ logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
+          style="width: {{ logo_width }}px;"
+        >
+      {%- else -%}
+        <span class="logo-mark" aria-hidden="true">
+          <span class="logo-mark__glyph"></span>
+        </span>
+        <span class="logo-wordmark">{{ logo_text }}</span>
+      {%- endif -%}
+    </a>
+
+    {%- comment -%} Desktop navigation {%- endcomment -%}
+    <nav class="site-header__nav" aria-label="{{ 'general.accessibility.main_navigation' | t }}">
+      {%- render 'nav-links', menu: main_menu, class: 'menu menu--desktop' -%}
+    </nav>
+
+    {%- comment -%} Utility actions {%- endcomment -%}
+    <div class="site-header__actions">
+      {%- if section.settings.show_search -%}
+        <button
+          class="icon-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="ZelvoxSearchPanel"
+          data-search-toggle
+        >
+          {%- render 'icon', name: 'search', size: 20 -%}
+          <span class="visually-hidden">{{ 'general.accessibility.search' | t }}</span>
+        </button>
+      {%- endif -%}
+
+      {%- if section.settings.show_account -%}
+        <a class="icon-btn site-header__action--desktop" href="{{ routes.account_url }}">
+          {%- render 'icon', name: 'account', size: 20 -%}
+          <span class="visually-hidden">{{ 'general.accessibility.open_account' | t }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_wishlist -%}
+        <a class="icon-btn site-header__action--desktop" href="{{ wishlist_url }}">
+          {%- render 'icon', name: 'heart', size: 20 -%}
+          <span class="visually-hidden">{{ 'general.accessibility.wishlist' | t }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_cart -%}
+        <a class="icon-btn cart-btn" href="{{ routes.cart_url }}">
+          {%- render 'icon', name: 'bag', size: 20 -%}
+          <span class="visually-hidden">{{ 'general.cart.cart' | t }}</span>
+          <span class="cart-count{% if cart.item_count == 0 %} is-hidden{% endif %}" data-cart-count>
+            {{- cart.item_count -}}
+          </span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Search drawer {%- endcomment -%}
+  {%- if section.settings.show_search -%}
+    <div class="site-header__search" id="ZelvoxSearchPanel" data-search-panel aria-hidden="true">
+      <div class="container">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search-form" data-predictive-form>
+          <div class="search-form__field">
+            {%- render 'icon', name: 'search', size: 20 -%}
+            <input
+              class="search-form__input"
+              type="search"
+              name="q"
+              placeholder="{{ 'general.search.placeholder' | t }}"
+              aria-label="{{ 'general.search.placeholder' | t }}"
+              autocomplete="off"
+              role="combobox"
+              aria-expanded="false"
+              aria-controls="ZelvoxHeaderSuggest"
+              aria-autocomplete="list"
+              data-search-input
+            >
+            <input type="hidden" name="type" value="product">
+            <button class="btn btn--primary btn--sm search-form__submit" type="submit">
+              {{ 'general.search.submit' | t }}
+            </button>
+          </div>
+          <div
+            class="search-suggest"
+            id="ZelvoxHeaderSuggest"
+            data-search-suggest
+            role="listbox"
+            aria-label="{{ 'general.search.suggestions' | t }}"
+            hidden
+          ></div>
+        </form>
+      </div>
+    </div>
+  {%- endif -%}
+</header>
+
+{%- comment -%}
+  Mobile drawer. Deliberately rendered OUTSIDE <header>: the sticky header uses
+  `backdrop-filter`, and an element with a backdrop-filter becomes the containing
+  block for its position:fixed descendants. Nesting the drawer inside <header>
+  made `inset: 0` resolve to the header's own ~73px box instead of the viewport,
+  which collapsed the menu to zero height and left the drawer looking empty.
+  As a sibling of <header> it sizes to the viewport again.
+{%- endcomment -%}
+<div class="mobile-nav" id="ZelvoxMobileNav" data-mobile-nav aria-hidden="true">
+    <div class="mobile-nav__backdrop" data-nav-close></div>
+    <div class="mobile-nav__panel" role="dialog" aria-modal="true" aria-label="{{ 'general.accessibility.menu' | t }}">
+      <div class="mobile-nav__head">
+        <a href="{{ routes.root_url }}" class="site-header__logo" data-nav-close>
+          <span class="logo-mark" aria-hidden="true"><span class="logo-mark__glyph"></span></span>
+          <span class="logo-wordmark">{{ logo_text }}</span>
+        </a>
+        <button class="icon-btn" type="button" data-nav-close>
+          {%- render 'icon', name: 'close', size: 22 -%}
+          <span class="visually-hidden">{{ 'general.accessibility.close' | t }}</span>
+        </button>
+      </div>
+
+      <div class="mobile-nav__groups">
+        {%- comment -%} Group 1: shop categories {%- endcomment -%}
+        <div class="mobile-nav__group">
+          <p class="mobile-nav__group-title" id="MobileNavCategories">
+            {{- 'general.navigation.categories' | t -}}
+          </p>
+          <nav class="mobile-nav__menu" aria-labelledby="MobileNavCategories">
+            {%- render 'nav-links', menu: main_menu, class: 'menu menu--mobile' -%}
+          </nav>
+        </div>
+
+        {%- comment -%}
+          Group 2: information pages. Uses the merchant's secondary menu when one
+          is chosen, otherwise falls back to the built-in Zelvox pages so the
+          drawer is never empty.
+        {%- endcomment -%}
+        {%- assign info_menu = linklists[section.settings.secondary_menu] -%}
+        <div class="mobile-nav__group">
+          <p class="mobile-nav__group-title" id="MobileNavInfo">
+            {{- 'general.navigation.information' | t -}}
+          </p>
+          <nav class="mobile-nav__menu" aria-labelledby="MobileNavInfo">
+            <ul class="menu menu--mobile">
+              {%- if info_menu != blank and info_menu.links.size > 0 -%}
+                {%- for link in info_menu.links -%}
+                  <li class="menu__item{% if link.active or link.child_active %} is-active{% endif %}">
+                    <a href="{{ link.url }}" class="menu__link">{{ link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              {%- else -%}
+                {%- assign pages_root = routes.root_url -%}
+                <li class="menu__item">
+                  <a href="{{ pages_root | append: 'pages/about-us' }}" class="menu__link">{{ 'pages.about.title' | t }}</a>
+                </li>
+                <li class="menu__item">
+                  <a href="{{ pages_root | append: 'pages/contact-us' }}" class="menu__link">{{ 'pages.contact.title' | t }}</a>
+                </li>
+                <li class="menu__item">
+                  <a href="{{ pages_root | append: 'pages/faqs' }}" class="menu__link">{{ 'pages.faqs.title' | t }}</a>
+                </li>
+                <li class="menu__item">
+                  <a href="{{ pages_root | append: 'pages/shipping' }}" class="menu__link">{{ 'pages.shipping.title' | t }}</a>
+                </li>
+                <li class="menu__item">
+                  <a href="{{ pages_root | append: 'pages/returns' }}" class="menu__link">{{ 'pages.returns.title' | t }}</a>
+                </li>
+                <li class="menu__item">
+                  <a href="{{ routes.search_url }}" class="menu__link">{{ 'general.search.title' | t }}</a>
+                </li>
+              {%- endif -%}
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="mobile-nav__actions">
+        {%- if section.settings.show_account -%}
+          <a class="mobile-nav__action" href="{{ routes.account_url }}">
+            {%- render 'icon', name: 'account', size: 18 -%}
+            <span>{{ 'general.account.account' | t }}</span>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.show_wishlist -%}
+          <a class="mobile-nav__action" href="{{ wishlist_url }}">
+            {%- render 'icon', name: 'heart', size: 18 -%}
+            <span>{{ 'general.accessibility.wishlist' | t }}</span>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.show_cart -%}
+          <a class="mobile-nav__action" href="{{ routes.cart_url }}">
+            {%- render 'icon', name: 'bag', size: 18 -%}
+            <span>{{ 'general.cart.cart' | t }}</span>
+            <span class="mobile-nav__action-count">{{ cart.item_count }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Zelvox"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 80,
+      "max": 260,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "Information menu (drawer)",
+      "default": "footer",
+      "info": "Listed in the drawer under 'Information'. Leave empty to use the built-in About / Contact / FAQs / Shipping / Returns links."
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Sticky header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Utility icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "wishlist_page",
+      "label": "Wishlist page",
+      "info": "Leave empty to use /pages/wishlist (an app or page can be connected later)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,17 @@
+{%- comment -%}
+  Quick View modal shell. Populated at runtime by theme.js from Shopify's
+  product JSON (/products/handle.js) so the merchant never has to maintain a
+  second copy of product data. Rendered empty and hidden by default.
+{%- endcomment -%}
+<div class="qv" id="ZelvoxQuickView" data-quick-view-modal aria-hidden="true">
+  <div class="qv__backdrop" data-quick-view-close></div>
+  <div class="qv__dialog" role="dialog" aria-modal="true" aria-label="{{ 'products.product.quick_view' | t }}" tabindex="-1" data-quick-view-dialog>
+    <button class="icon-btn qv__close" type="button" data-quick-view-close>
+      {%- render 'icon', name: 'close', size: 22 -%}
+      <span class="visually-hidden">{{ 'general.accessibility.close' | t }}</span>
+    </button>
+    <div class="qv__inner" data-quick-view-inner>
+      <p class="qv__loading">{{ 'products.product.loading' | t }}</p>
+    </div>
+  </div>
+</div>

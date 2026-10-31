@@ -1,0 +1,85 @@
+{%- comment -%}
+  Renders a Quick Add to Cart control for a product card.
+  - Single-variant products: a one-click Add to cart (AJAX via theme.js, with a
+    native form fallback so it works without JS).
+  - Multi-variant products: reveals an inline variant picker inside the card,
+    then adds the chosen variant.
+
+  All data comes from Shopify: variants, prices and availability are live.
+  Accepts:
+  - product: {product} product object (required)
+  - card_id: {string} unique id for the form/ids (required)
+{%- endcomment -%}
+{%- liquid
+  assign qid = card_id | default: product.id
+  assign form_id = 'QuickAdd-' | append: qid
+  assign single = product.has_only_default_variant
+  assign first_variant = product.selected_or_first_available_variant
+  assign cannot_purchase = false
+  if product.available == false
+    assign cannot_purchase = true
+  elsif first_variant.available == false and single
+    assign cannot_purchase = true
+  endif
+-%}
+<div class="quick-add" data-quick-add data-product-id="{{ product.id }}">
+  <button
+    class="quick-add__toggle btn btn--sm btn--primary"
+    type="button"
+    data-quick-add-toggle
+    aria-expanded="false"
+    aria-controls="{{ form_id }}-panel"
+    {% if cannot_purchase %}disabled{% endif %}
+  >
+    {%- if cannot_purchase -%}
+      {{ 'products.product.sold_out' | t }}
+    {%- elsif single -%}
+      {{ 'products.product.quick_add' | t }}
+    {%- else -%}
+      {{ 'products.product.choose_options' | t }}
+    {%- endif -%}
+  </button>
+
+  <div class="quick-add__panel" id="{{ form_id }}-panel" data-quick-add-panel hidden>
+    <form
+      class="quick-add__form"
+      id="{{ form_id }}"
+      method="post"
+      action="{{ routes.cart_add_url }}"
+      enctype="multipart/form-data"
+      data-quick-add-form
+    >
+      <input type="hidden" name="id" value="{{ first_variant.id }}" data-quick-add-variant>
+      <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+
+      {%- unless single -%}
+        {%- render 'variant-picker', product: product, product_form_id: form_id -%}
+      {%- endunless -%}
+
+      <div class="quick-add__row">
+        <div class="qty-field qty-field--sm">
+          <label class="visually-hidden" for="{{ form_id }}-qty">{{ 'templates.product.quantity' | t }}</label>
+          <input
+            class="qty-field__input"
+            id="{{ form_id }}-qty"
+            type="number"
+            name="quantity"
+            value="1"
+            min="1"
+          >
+        </div>
+        <button
+          class="btn btn--primary btn--sm quick-add__submit"
+          type="submit"
+          data-quick-add-submit
+          {% if cannot_purchase %}disabled{% endif %}
+        >
+          {{ 'products.product.add_to_cart' | t }}
+        </button>
+      </div>
+
+      <p class="quick-add__status" data-quick-add-status role="status" aria-live="polite"></p>
+      <a class="quick-add__view" href="{{ product.url | default: '#' }}">{{ 'products.product.view_details' | t }}</a>
+    </form>
+  </div>
+</div>

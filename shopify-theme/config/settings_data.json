@@ -1,0 +1,74 @@
+{
+  "current": {
+    "color_bg": "#FFFFFF",
+    "color_bg_soft": "#F7F6FA",
+    "color_surface": "#FFFFFF",
+    "color_surface_2": "#F3EEFF",
+    "color_text": "#242033",
+    "color_text_muted": "#777386",
+    "color_border": "#E7E3F2",
+    "color_accent": "#7545E8",
+    "color_accent_alt": "#A478FF",
+    "color_accent_contrast": "#FFFFFF",
+    "color_success": "#1FA97A",
+    "color_error": "#D6455A",
+    "type_base_size": 16,
+    "type_heading_transform": "none",
+    "type_heading_weight": "700",
+    "page_width": 1320,
+    "gutter": 24,
+    "section_spacing": 96,
+    "card_radius": 18,
+    "button_radius": 12,
+    "button_style": "solid",
+    "button_transform": "none",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "text": "Free express shipping over $99 · 30-day easy returns · 2-year Zelvox warranty"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_text": "Zelvox",
+          "logo_width": 150,
+          "menu": "main-menu",
+          "sticky": true,
+          "show_search": true,
+          "show_account": true,
+          "show_wishlist": true,
+          "show_cart": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo_text": "Zelvox",
+          "logo_width": 150,
+          "about": "Premium gadgets and smart technology, curated for people who expect more from their devices.",
+          "show_social": true,
+          "show_payment": true
+        },
+        "blocks": {
+          "footer-menu-1": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Explore",
+              "menu": "main-menu"
+            }
+          },
+          "footer-menu-2": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Information",
+              "menu": "footer"
+            }
+          }
+        },
+        "block_order": ["footer-menu-1", "footer-menu-2"]
+      }
+    }
+  }
+}

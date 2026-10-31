@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-about",
+      "settings": {},
+      "blocks": {
+        "value-1": {
+          "type": "value",
+          "settings": {
+            "title": "Tested before it ships",
+            "text": "We check build quality, battery life and connectivity on every product before it goes on sale.",
+            "icon": "check"
+          }
+        },
+        "value-2": {
+          "type": "value",
+          "settings": {
+            "title": "Free express shipping",
+            "text": "Free tracked express shipping on every order over $99.",
+            "icon": "truck"
+          }
+        },
+        "value-3": {
+          "type": "value",
+          "settings": {
+            "title": "30-day easy returns",
+            "text": "Changed your mind? Send it back within 30 days for a refund.",
+            "icon": "returns"
+          }
+        },
+        "value-4": {
+          "type": "value",
+          "settings": {
+            "title": "2-year warranty",
+            "text": "Every Zelvox product is covered by a 2-year warranty against manufacturing defects.",
+            "icon": "shield"
+          }
+        }
+      },
+      "block_order": ["value-1", "value-2", "value-3", "value-4"]
+    }
+  },
+  "order": ["main"]
+}

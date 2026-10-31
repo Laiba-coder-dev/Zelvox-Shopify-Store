@@ -1,0 +1,220 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a href="{{ routes.root_url }}" class="site-footer__logo">
+          {%- if section.settings.logo != blank -%}
+            <img
+              src="{{ section.settings.logo | image_url: width: 400 }}"
+              alt="{{ shop.name | escape }}"
+              width="{{ section.settings.logo_width | default: 150 }}"
+              loading="lazy"
+              style="width: {{ section.settings.logo_width | default: 150 }}px;"
+            >
+          {%- else -%}
+            <span class="logo-mark" aria-hidden="true"><span class="logo-mark__glyph"></span></span>
+            <span class="logo-wordmark">{{ section.settings.logo_text | default: 'Zelvox' }}</span>
+          {%- endif -%}
+        </a>
+
+        {%- if section.settings.about != blank -%}
+          <p class="site-footer__about">{{ section.settings.about }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.show_social -%}
+          {%- assign social_links = 'instagram:section_social_instagram,x:section_social_x,youtube:section_social_youtube,tiktok:section_social_tiktok,facebook:section_social_facebook,linkedin:section_social_linkedin' | split: ',' -%}
+          <ul class="social-list">
+            {%- for social_item in social_links -%}
+              {%- assign social_parts = social_item | split: ':' -%}
+              {%- assign social_handle = social_parts[0] -%}
+              {%- assign social_key = social_parts[1] -%}
+              {%- assign social_url = section.settings[social_key] -%}
+              {%- if social_url != blank -%}
+                <li>
+                  <a class="social-link" href="{{ social_url }}" target="_blank" rel="noopener" aria-label="{{ social_handle | capitalize }}">
+                    {%- render 'icon', name: social_handle, size: 18 -%}
+                  </a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- assign footer_menu = linklists[block.settings.menu] -%}
+        <div class="site-footer__col" {{ block.shopify_attributes }}>
+          <h3 class="site-footer__heading">{{ block.settings.heading | default: footer_menu.title }}</h3>
+          <ul class="site-footer__links">
+            {%- if footer_menu != blank and footer_menu.links.size > 0 -%}
+              {%- for link in footer_menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            {%- else -%}
+              <li><a href="{{ routes.root_url | append: 'pages/about-us' }}">{{ 'pages.about.title' | t }}</a></li>
+              <li><a href="{{ routes.root_url | append: 'pages/faqs' }}">{{ 'pages.faqs.title' | t }}</a></li>
+              <li><a href="{{ routes.root_url | append: 'pages/contact-us' }}">{{ 'pages.contact.title' | t }}</a></li>
+              <li><a href="{{ routes.all_products_collection_url }}">{{ 'products.collection.view_all' | t }}</a></li>
+              <li><a href="{{ routes.search_url }}">{{ 'general.search.title' | t }}</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+
+      {%- if section.blocks.size == 0 -%}
+        <div class="site-footer__col">
+          <h3 class="site-footer__heading">{{ 'general.search.title' | t }}</h3>
+          <ul class="site-footer__links">
+            <li><a href="{{ routes.all_products_collection_url }}">{{ 'products.collection.view_all' | t }}</a></li>
+            <li><a href="{{ routes.search_url }}">{{ 'general.search.title' | t }}</a></li>
+            <li><a href="{{ routes.account_url }}">{{ 'general.account.account' | t }}</a></li>
+            <li><a href="{{ routes.cart_url }}">{{ 'general.cart.cart' | t }}</a></li>
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">
+        {%- if section.settings.copyright != blank -%}
+          {{ section.settings.copyright }}
+        {%- else -%}
+          {%- assign current_year = 'now' | date: '%Y' -%}
+          {{ 'sections.footer.copyright' | t: year: current_year }}
+        {%- endif -%}
+      </p>
+
+      {%- if section.settings.show_payment -%}
+        <div class="site-footer__payment">
+          <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+          <ul class="payment-list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag: class: 'payment-icon' }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Zelvox"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 80,
+      "max": 260,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "textarea",
+      "id": "about",
+      "label": "About text",
+      "default": "Premium gadgets and smart technology, curated for people who expect more from their devices."
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright text",
+      "info": "Leave empty to use the default copyright line."
+    },
+    {
+      "type": "header",
+      "content": "Social media"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social icons",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "section_social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "section_social_x",
+      "label": "X URL"
+    },
+    {
+      "type": "url",
+      "id": "section_social_youtube",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "url",
+      "id": "section_social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "section_social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "section_social_linkedin",
+      "label": "LinkedIn URL"
+    },
+    {
+      "type": "header",
+      "content": "Payment"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment",
+      "label": "Show payment icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Explore"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        { "type": "link_list" },
+        { "type": "link_list" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,114 @@
+<section class="section" data-cart-page>
+  <div class="container container--narrow">
+    <header class="page-head">
+      <p class="eyebrow">{{ shop.name }}</p>
+      <h1 class="page-title">{{ 'templates.cart.title' | t }}</h1>
+      {%- if cart.item_count > 0 -%}
+        <p class="page-lede" data-cart-page-count>{{ 'general.cart.items' | t: count: cart.item_count }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if cart.item_count > 0 -%}
+      {%- form 'cart', cart, class: 'cart-form', data-cart-form: '' -%}
+        <div class="cart-list">
+          {%- for item in cart.items -%}
+            <div class="cart-item" data-cart-item data-key="{{ item.key }}">
+              <a class="cart-item__media" href="{{ item.url }}">
+                {%- if item.image -%}
+                  <img
+                    src="{{ item.image | image_url: width: 240 }}"
+                    width="240"
+                    height="240"
+                    alt="{{ item.title | escape }}"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <span class="cart-item__placeholder">{%- render 'icon', name: 'bolt', size: 24 -%}</span>
+                {%- endif -%}
+              </a>
+
+              <div class="cart-item__details">
+                <a class="cart-item__title" href="{{ item.url }}">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <p class="cart-item__unit">{{ item.final_price | money }} / {{ 'templates.cart.each' | t }}</p>
+                <button
+                  class="cart-item__remove"
+                  type="button"
+                  data-cart-item-remove
+                  data-key="{{ item.key }}"
+                >
+                  {{ 'templates.cart.remove' | t }}
+                </button>
+              </div>
+
+              <div class="cart-item__qty">
+                <label class="visually-hidden" for="Qty-{{ item.key }}">
+                  {{ 'templates.cart.quantity' | t }}
+                </label>
+                <div class="qty-field qty-field--sm">
+                  <button class="qty-field__btn" type="button" data-qty-dec aria-label="{{ 'templates.cart.decrease' | t }}">
+                    {%- render 'icon', name: 'minus', size: 16 -%}
+                  </button>
+                  <input
+                    class="qty-field__input"
+                    id="Qty-{{ item.key }}"
+                    type="number"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    data-cart-item-qty
+                    data-key="{{ item.key }}"
+                    inputmode="numeric"
+                  >
+                  <button class="qty-field__btn" type="button" data-qty-inc aria-label="{{ 'templates.cart.increase' | t }}">
+                    {%- render 'icon', name: 'plus', size: 16 -%}
+                  </button>
+                </div>
+              </div>
+
+              <p class="cart-item__total" data-cart-line-price>{{ item.final_line_price | money }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="cart-summary">
+          <div class="cart-summary__row">
+            <span>{{ 'templates.cart.subtotal' | t }}</span>
+            <strong data-cart-page-subtotal>{{ cart.total_price | money }}</strong>
+          </div>
+          <p class="cart-summary__note">{{ 'templates.cart.taxes_and_shipping' | t }}</p>
+          <div class="cart-summary__actions">
+            <button class="btn btn--outline" type="submit" name="update">
+              {{ 'templates.cart.update' | t }}
+            </button>
+            <button class="btn btn--primary btn--lg" type="submit" name="checkout">
+              <span>{{ 'templates.cart.checkout' | t }}</span>
+              {%- render 'icon', name: 'lock', size: 16 -%}
+            </button>
+          </div>
+          <a class="cart-summary__continue" href="{{ routes.all_products_collection_url }}">
+            {%- render 'icon', name: 'arrow-left', size: 16 -%}
+            {{ 'templates.cart.continue_shopping' | t }}
+          </a>
+        </div>
+      {%- endform -%}
+    {%- else -%}
+      <div class="empty-state">
+        <span class="empty-state__icon" aria-hidden="true">{%- render 'icon', name: 'bag', size: 26 -%}</span>
+        <p class="empty-state__text">{{ 'templates.cart.empty' | t }}</p>
+        <a class="btn btn--primary btn--sm" href="{{ routes.all_products_collection_url }}">
+          {{ 'templates.cart.continue_shopping' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

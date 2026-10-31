@@ -1,0 +1,39 @@
+{%- comment -%}
+  Renders genuine stock availability messaging from a Shopify variant.
+  Never fabricates stock: only reports what Shopify exposes
+  (variant.available, variant.inventory_management, variant.inventory_quantity).
+
+  Accepts:
+  - variant: {variant} variant object (required)
+  - low_threshold: {number} quantity at which to show a low-stock warning (optional, default 5)
+{%- endcomment -%}
+{%- liquid
+  assign threshold = low_threshold | default: 5
+-%}
+{%- if variant != blank -%}
+  {%- if variant.available -%}
+    {%- if variant.inventory_management != blank and variant.inventory_quantity > 0 and variant.inventory_quantity <= threshold -%}
+      <span class="stock stock--low">
+        {%- render 'icon', name: 'alert-circle', size: 16 -%}
+        <span>{{ 'products.product.stock_low' | t: count: variant.inventory_quantity }}</span>
+      </span>
+    {%- else -%}
+      <span class="stock stock--in">
+        {%- render 'icon', name: 'check-circle', size: 16 -%}
+        <span>{{ 'products.product.stock_in' | t }}</span>
+      </span>
+    {%- endif -%}
+  {%- else -%}
+    {%- if variant.incoming and variant.available == false -%}
+      <span class="stock stock--soon">
+        {%- render 'icon', name: 'truck', size: 16 -%}
+        <span>{{ 'products.product.stock_soon' | t }}</span>
+      </span>
+    {%- else -%}
+      <span class="stock stock--out">
+        {%- render 'icon', name: 'alert-circle', size: 16 -%}
+        <span>{{ 'products.product.stock_out' | t }}</span>
+      </span>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

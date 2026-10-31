@@ -1,0 +1,1 @@
+Zelvox is a premium gadget storefront theme for Shopify Online Store 2.0. It pairs a clean white-and-violet design system with a cinematic four-slide hero, grouped mobile navigation and a full commerce layer: cart drawer, quick add, variant picking, wishlist, predictive search and tag filtering. No build step, vanilla JS, fully accessible and fast.

@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-faqs",
+      "settings": {},
+      "blocks": {
+        "b1": { "type": "category", "settings": { "heading": "Ordering and payment" } },
+        "b2": { "type": "question", "settings": { "question": "Which payment methods do you accept?", "answer": "<p>You can pay with the payment methods shown at checkout. The options available to you depend on your country and are listed on the checkout page before you pay.</p>" } },
+        "b3": { "type": "question", "settings": { "question": "Can I change or cancel my order after placing it?", "answer": "<p>We pack orders quickly. If you need to change or cancel an order, contact us as soon as possible with your order number and we will do our best to help before it ships.</p>" } },
+        "b4": { "type": "question", "settings": { "question": "Do you run discounts or promotions?", "answer": "<p>Any current promotions are shown on the product and cart pages. The price you see at checkout is the price you pay.</p>" } },
+
+        "b5": { "type": "category", "settings": { "heading": "Shipping and delivery" } },
+        "b6": { "type": "question", "settings": { "question": "How much does shipping cost?", "answer": "<p>Shipping is free on orders over $99. For orders under $99 the shipping cost is shown at checkout before you pay.</p>" } },
+        "b7": { "type": "question", "settings": { "question": "When will my order arrive?", "answer": "<p>Orders are packed and dispatched quickly. The delivery estimate for your address is shown at checkout and in your confirmation email.</p>" } },
+        "b8": { "type": "question", "settings": { "question": "Do you ship internationally?", "answer": "<p>We ship to the countries listed at checkout. Available destinations and rates are shown when you enter your delivery address.</p>" } },
+        "b9": { "type": "question", "settings": { "question": "How do I track my order?", "answer": "<p>Once your order ships we send a confirmation email with tracking details. You can also see the status of your orders in the <a href=\"/account/orders\">account area</a>.</p>" } },
+
+        "b10": { "type": "category", "settings": { "heading": "Returns and refunds" } },
+        "b11": { "type": "question", "settings": { "question": "What is your returns policy?", "answer": "<p>You have 30 days from delivery to return an item. Products must be unused and in their original packaging.</p>" } },
+        "b12": { "type": "question", "settings": { "question": "How do I start a return?", "answer": "<p>Contact us with your order number and we will send you the return instructions and address.</p>" } },
+        "b13": { "type": "question", "settings": { "question": "When will I get my refund?", "answer": "<p>Once we receive and check the return, your refund is issued to your original payment method. Your bank may take a few extra days to show it.</p>" } },
+        "b14": { "type": "question", "settings": { "question": "Do I pay for return shipping?", "answer": "<p>Return shipping is free for faulty items. For change-of-mind returns, the return postage is covered by you.</p>" } },
+
+        "b15": { "type": "category", "settings": { "heading": "Authenticity and warranty" } },
+        "b16": { "type": "question", "settings": { "question": "Are Zelvox products genuine?", "answer": "<p>Every product we sell is sourced from verified suppliers and checked before dispatch. We do not sell replicas or grey-market stock.</p>" } },
+        "b17": { "type": "question", "settings": { "question": "What does the warranty cover?", "answer": "<p>Every Zelvox product includes a 2-year warranty covering manufacturing defects under normal use.</p>" } },
+        "b18": { "type": "question", "settings": { "question": "How do I make a warranty claim?", "answer": "<p>Contact us with your order number and a short description of the fault. Include a photo or video if you can, and we will tell you the next step.</p>" } },
+
+        "b19": { "type": "category", "settings": { "heading": "Order tracking" } },
+        "b20": { "type": "question", "settings": { "question": "Where is my order?", "answer": "<p>Check the tracking link in your shipping confirmation email first. If tracking has not updated or your parcel seems stuck, contact us with your order number.</p>" } },
+        "b21": { "type": "question", "settings": { "question": "My order arrived damaged or faulty.", "answer": "<p>Contact us as soon as possible with your order number and photos of the damage. We will arrange a replacement or a refund.</p>" } },
+        "b22": { "type": "question", "settings": { "question": "An item is missing from my order.", "answer": "<p>Contact us with your order number and we will check the packing record and send anything that is missing.</p>" } },
+
+        "b23": { "type": "category", "settings": { "heading": "Customer support" } },
+        "b24": { "type": "question", "settings": { "question": "How can I contact you?", "answer": "<p>Use the <a href=\"/pages/contact-us\">contact form</a> to send us a message. We reply by email.</p>" } },
+        "b25": { "type": "question", "settings": { "question": "What are your support hours?", "answer": "<p>We answer messages in the order they arrive on working days.</p>" } },
+        "b26": { "type": "question", "settings": { "question": "Do you have a phone number?", "answer": "<p>Our phone number, when available, is listed on the <a href=\"/pages/contact-us\">contact page</a>.</p>" } }
+      },
+      "block_order": [
+        "b1", "b2", "b3", "b4",
+        "b5", "b6", "b7", "b8", "b9",
+        "b10", "b11", "b12", "b13", "b14",
+        "b15", "b16", "b17", "b18",
+        "b19", "b20", "b21", "b22",
+        "b23", "b24", "b25", "b26"
+      ]
+    }
+  },
+  "order": ["main"]
+}

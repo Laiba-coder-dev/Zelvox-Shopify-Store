@@ -1,0 +1,142 @@
+{%- liquid
+  assign columns = section.settings.columns
+  assign view_all_label = section.settings.view_all_label
+  if section.settings.view_all_link != blank
+    assign view_all_url = section.settings.view_all_link
+  else
+    assign view_all_url = routes.all_products_collection_url
+  endif
+-%}
+<section class="section section--categories" id="Section-{{ section.id }}">
+  <div class="container">
+    {%- render 'section-head',
+      eyebrow: section.settings.eyebrow,
+      title: section.settings.heading,
+      subtitle: section.settings.subtitle,
+      link: view_all_url,
+      link_label: view_all_label,
+      align: section.settings.heading_align
+    -%}
+
+    <div class="category-grid" data-reveal style="--category-cols: {{ columns }};">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="category-grid__item" {{ block.shopify_attributes }}>
+            {%- render 'collection-card',
+              collection_handle: block.settings.collection,
+              image: block.settings.image,
+              title: block.settings.title
+            -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign fallback_titles = 'Smartphones & Tablets,Audio & Headphones,Smartwatches & Wearables,Gaming Gear,Smart Home,Chargers & Accessories' | split: ',' -%}
+        {%- assign fallback_handles = 'smartphones,audio,wearables,gaming,smart-home,accessories' | split: ',' -%}
+        {%- for fallback_title in fallback_titles -%}
+          {%- assign fallback_handle = fallback_handles[forloop.index0] -%}
+          <div class="category-grid__item">
+            {%- render 'collection-card',
+              collection_handle: fallback_handle,
+              title: fallback_title
+            -%}
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop by category",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Browse"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by category"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Six curated collections, one standard of quality."
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Link label",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Smartphones"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Overrides the collection image."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by category",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Smartphones & Tablets" } },
+        { "type": "category", "settings": { "title": "Audio & Headphones" } },
+        { "type": "category", "settings": { "title": "Smartwatches & Wearables" } },
+        { "type": "category", "settings": { "title": "Gaming Gear" } },
+        { "type": "category", "settings": { "title": "Smart Home" } },
+        { "type": "category", "settings": { "title": "Chargers & Accessories" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
