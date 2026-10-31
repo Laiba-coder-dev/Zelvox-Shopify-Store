@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="color-scheme" content="light">
+
+    <title>
+      Log in &middot; Zelvox</title>
+
+    
+      <meta name="description" content="Zelvox sells premium smartphones, audio, smart devices, gaming gear and accessories.">
+    
+
+    <link rel="canonical" href="https://zelvox.myshopify.com/">
+
+    <meta property="og:site_name" content="Zelvox">
+    <meta property="og:title" content="Log in">
+    <meta property="og:description" content="Zelvox sells premium smartphones, audio, smart devices, gaming gear and accessories.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zelvox.myshopify.com/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Log in">
+    <meta name="twitter:description" content="Zelvox sells premium smartphones, audio, smart devices, gaming gear and accessories."><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    >
+
+    <style>
+      :root {
+    /* Surfaces */
+    --bg: #FFFFFF;
+    --bg-soft: #F7F6FA;
+    --surface: #FFFFFF;
+    --surface-2: #F3EEFF;
+    --text: #242033;
+    --text-muted: #777386;
+    --border: #E7E3F2;
+
+    /* Accents */
+    --accent: #7545E8;
+    --accent-2: #A478FF;
+    --accent-contrast: #FFFFFF;
+    --success: #1FA97A;
+    --error: #D6455A;
+
+    --grad-accent: linear-gradient(100deg, #7545E8 0%, #A478FF 100%);
+    --grad-surface: linear-gradient(160deg, rgba(117,69,232,0.06), rgba(164,120,255,0.02));
+    --grad-hero: linear-gradient(135deg, #FFFFFF 0%, #F7F4FF 45%, #F3EEFF 100%);
+
+    /* Type */
+    --font-heading: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    --text-base: 16px;
+    --text-xs: 0.75rem;
+    --text-sm: 0.85rem;
+    --text-md: calc(var(--text-base) * 1.1);
+    --text-lg: calc(var(--text-base) * 1.35);
+    --text-xl: calc(var(--text-base) * 1.7);
+    --text-2xl: calc(var(--text-base) * 2.15);
+    --text-3xl: calc(var(--text-base) * 2.8);
+    --text-4xl: calc(var(--text-base) * 3.6);
+
+    --heading-weight: 700;
+    --heading-transform: none;
+    --btn-transform: none;
+
+    /* Layout */
+    --page-width: 1320px;
+    --gutter: 24px;
+    --section-space: 96px;
+    --radius-card: 18px;
+    --radius-btn: 12px;
+    --radius-pill: 999px;
+
+    /* Elevation — soft, tinted for light surfaces */
+    --shadow-1: 0 1px 2px rgba(36, 32, 51, 0.06);
+    --shadow-2: 0 14px 34px -14px rgba(36, 32, 51, 0.16);
+    --shadow-3: 0 32px 70px -28px rgba(36, 32, 51, 0.22);
+    --glow-accent: 0 18px 45px -18px rgba(117, 69, 232, 0.55);
+    --ring-accent: 0 0 0 4px rgba(117, 69, 232, 0.18);
+
+    /* Glass — light, subtle lavender tint */
+    --glass-bg: rgba(255,255,255,0.72);
+    --glass-border: rgba(36, 32, 51, 0.08);
+    --glass-blur: 16px;
+
+    --header-height: 72px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur: 280ms;
+
+    
+      /* Solid primary buttons: white text on the purple accent clears the WCAG
+         4.5:1 contrast minimum (#7545E8 vs #FFFFFF ≈ 6.2:1). */
+      --btn-bg: #7545E8;
+      --btn-bg-hover: #A478FF;
+      --btn-fg: #FFFFFF;
+      --btn-fg-hover: #FFFFFF;
+      --btn-border: #7545E8;
+    
+  }
+
+    </style>
+    <link rel="stylesheet" href="/Zelvox-Shopify-Store/assets/base.css">
+
+    <script>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+    </script>
+
+    <!-- content_for_header -->
+  </head>
+
+  <body class="template-customers-login">
+    <a class="skip-link" href="#MainContent">Skip to content</a>
+
+    <div class="announcement" data-announcement>
+    <div class="container announcement__inner"><p class="announcement__text">Free express shipping over $99 · 30-day easy returns · 2-year Zelvox warranty</p></div>
+  </div>
+    <header class="site-header site-header--sticky" data-site-header>
+  <div class="container site-header__inner"><button
+      class="icon-btn site-header__trigger"
+      type="button"
+      aria-expanded="false"
+      aria-controls="ZelvoxMobileNav"
+      data-nav-toggle
+    ><svg
+  class="icon icon--menu"
+  width="22"
+  height="22"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+<span class="visually-hidden">Menu</span>
+    </button><a href="/Zelvox-Shopify-Store/" class="site-header__logo" aria-label="Zelvox"><span class="logo-mark" aria-hidden="true">
+          <span class="logo-mark__glyph"></span>
+        </span>
+        <span class="logo-wordmark">Zelvox</span></a><nav class="site-header__nav" aria-label="Main navigation"><ul class="menu menu--desktop"><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/" class="menu__link">
+          Home</a></li><li class="menu__item menu__item--has-children">
+        <a href="/Zelvox-Shopify-Store/collections/all" class="menu__link">
+          Shop All<svg
+  class="icon icon--chevron-down"
+  width="14"
+  height="14"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M5.5 9L12 15.5 18.5 9"/></svg>
+</a><div class="menu__dropdown">
+            <ul class="menu__dropdown-list"><li>
+                  <a href="/Zelvox-Shopify-Store/collections/new-arrivals" class="menu__dropdown-link">New Arrivals</a>
+                </li><li>
+                  <a href="/Zelvox-Shopify-Store/collections/bestsellers" class="menu__dropdown-link">Bestsellers</a>
+                </li></ul>
+          </div></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/smartphones" class="menu__link">
+          Smartphones</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/audio" class="menu__link">
+          Audio</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/smart-devices" class="menu__link">
+          Smart Devices</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/gaming" class="menu__link">
+          Gaming</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/accessories" class="menu__link">
+          Accessories</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/new-arrivals" class="menu__link">
+          New Arrivals</a></li></ul>
+</nav><div class="site-header__actions"><button
+          class="icon-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="ZelvoxSearchPanel"
+          data-search-toggle
+        ><svg
+  class="icon icon--search"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><circle cx="11" cy="11" r="7"/><path d="M20.2 20.2l-4-4"/></svg>
+<span class="visually-hidden">Search</span>
+        </button><a class="icon-btn site-header__action--desktop" href="/Zelvox-Shopify-Store/account"><svg
+  class="icon icon--account"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><circle cx="12" cy="8.5" r="3.75"/><path d="M4.75 20c.9-3.4 3.8-5.25 7.25-5.25S18.35 16.6 19.25 20"/></svg>
+<span class="visually-hidden">Account</span>
+        </a><a class="icon-btn site-header__action--desktop" href="/Zelvox-Shopify-Store/pages/wishlist"><svg
+  class="icon icon--heart"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M12 20.25s-7.25-4.4-7.25-9.6A4.15 4.15 0 0 1 12 7.6a4.15 4.15 0 0 1 7.25 3.05c0 5.2-7.25 9.6-7.25 9.6z"/></svg>
+<span class="visually-hidden">Wishlist</span>
+        </a><a class="icon-btn cart-btn" href="/Zelvox-Shopify-Store/cart"><svg
+  class="icon icon--bag"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M5.75 7.75h12.5l1 12.5H4.75l1-12.5z"/><path d="M9 7.75V6.5a3 3 0 0 1 6 0v1.25"/></svg>
+<span class="visually-hidden">Cart</span>
+          <span class="cart-count" data-cart-count>3</span>
+        </a></div>
+  </div><div class="site-header__search" id="ZelvoxSearchPanel" data-search-panel aria-hidden="true">
+      <div class="container">
+        <form action="/Zelvox-Shopify-Store/search" method="get" role="search" class="search-form" data-predictive-form>
+          <div class="search-form__field"><svg
+  class="icon icon--search"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><circle cx="11" cy="11" r="7"/><path d="M20.2 20.2l-4-4"/></svg>
+<input
+              class="search-form__input"
+              type="search"
+              name="q"
+              placeholder="Search gadgets, brands and collections"
+              aria-label="Search gadgets, brands and collections"
+              autocomplete="off"
+              role="combobox"
+              aria-expanded="false"
+              aria-controls="ZelvoxHeaderSuggest"
+              aria-autocomplete="list"
+              data-search-input
+            >
+            <input type="hidden" name="type" value="product">
+            <button class="btn btn--primary btn--sm search-form__submit" type="submit">
+              Search
+            </button>
+          </div>
+          <div
+            class="search-suggest"
+            id="ZelvoxHeaderSuggest"
+            data-search-suggest
+            role="listbox"
+            aria-label="Product suggestions"
+            hidden
+          ></div>
+        </form>
+      </div>
+    </div></header><div class="mobile-nav" id="ZelvoxMobileNav" data-mobile-nav aria-hidden="true">
+    <div class="mobile-nav__backdrop" data-nav-close></div>
+    <div class="mobile-nav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="mobile-nav__head">
+        <a href="/Zelvox-Shopify-Store/" class="site-header__logo" data-nav-close>
+          <span class="logo-mark" aria-hidden="true"><span class="logo-mark__glyph"></span></span>
+          <span class="logo-wordmark">Zelvox</span>
+        </a>
+        <button class="icon-btn" type="button" data-nav-close><svg
+  class="icon icon--close"
+  width="22"
+  height="22"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+<span class="visually-hidden">Close</span>
+        </button>
+      </div>
+
+      <div class="mobile-nav__groups"><div class="mobile-nav__group">
+          <p class="mobile-nav__group-title" id="MobileNavCategories">Categories</p>
+          <nav class="mobile-nav__menu" aria-labelledby="MobileNavCategories"><ul class="menu menu--mobile"><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/" class="menu__link">
+          Home</a></li><li class="menu__item menu__item--has-children">
+        <a href="/Zelvox-Shopify-Store/collections/all" class="menu__link">
+          Shop All<svg
+  class="icon icon--chevron-down"
+  width="14"
+  height="14"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M5.5 9L12 15.5 18.5 9"/></svg>
+</a><div class="menu__dropdown">
+            <ul class="menu__dropdown-list"><li>
+                  <a href="/Zelvox-Shopify-Store/collections/new-arrivals" class="menu__dropdown-link">New Arrivals</a>
+                </li><li>
+                  <a href="/Zelvox-Shopify-Store/collections/bestsellers" class="menu__dropdown-link">Bestsellers</a>
+                </li></ul>
+          </div></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/smartphones" class="menu__link">
+          Smartphones</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/audio" class="menu__link">
+          Audio</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/smart-devices" class="menu__link">
+          Smart Devices</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/gaming" class="menu__link">
+          Gaming</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/accessories" class="menu__link">
+          Accessories</a></li><li class="menu__item">
+        <a href="/Zelvox-Shopify-Store/collections/new-arrivals" class="menu__link">
+          New Arrivals</a></li></ul>
+</nav>
+        </div><div class="mobile-nav__group">
+          <p class="mobile-nav__group-title" id="MobileNavInfo">Information</p>
+          <nav class="mobile-nav__menu" aria-labelledby="MobileNavInfo">
+            <ul class="menu menu--mobile"><li class="menu__item">
+                    <a href="/Zelvox-Shopify-Store/pages/about-us" class="menu__link">About Us</a>
+                  </li><li class="menu__item">
+                    <a href="/Zelvox-Shopify-Store/pages/faqs" class="menu__link">FAQs</a>
+                  </li><li class="menu__item">
+                    <a href="/Zelvox-Shopify-Store/pages/contact-us" class="menu__link">Contact Us</a>
+                  </li><li class="menu__item">
+                    <a href="/Zelvox-Shopify-Store/pages/shipping" class="menu__link">Shipping & delivery</a>
+                  </li><li class="menu__item">
+                    <a href="/Zelvox-Shopify-Store/pages/returns" class="menu__link">Returns & warranty</a>
+                  </li></ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="mobile-nav__actions"><a class="mobile-nav__action" href="/Zelvox-Shopify-Store/account"><svg
+  class="icon icon--account"
+  width="18"
+  height="18"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><circle cx="12" cy="8.5" r="3.75"/><path d="M4.75 20c.9-3.4 3.8-5.25 7.25-5.25S18.35 16.6 19.25 20"/></svg>
+<span>Account</span>
+          </a><a class="mobile-nav__action" href="/Zelvox-Shopify-Store/pages/wishlist"><svg
+  class="icon icon--heart"
+  width="18"
+  height="18"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M12 20.25s-7.25-4.4-7.25-9.6A4.15 4.15 0 0 1 12 7.6a4.15 4.15 0 0 1 7.25 3.05c0 5.2-7.25 9.6-7.25 9.6z"/></svg>
+<span>Wishlist</span>
+          </a><a class="mobile-nav__action" href="/Zelvox-Shopify-Store/cart"><svg
+  class="icon icon--bag"
+  width="18"
+  height="18"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M5.75 7.75h12.5l1 12.5H4.75l1-12.5z"/><path d="M9 7.75V6.5a3 3 0 0 1 6 0v1.25"/></svg>
+<span>Cart</span>
+            <span class="mobile-nav__action-count">3</span>
+          </a></div>
+    </div>
+  </div>
+
+
+
+
+    <main id="MainContent" class="main-content" role="main" tabindex="-1">
+      <section class="section account-page">
+  <div class="container container--narrow">
+    <header class="page-head">
+      <p class="eyebrow">Zelvox</p>
+      <h1 class="page-title">Log in</h1>
+    </header>
+
+    <div class="account-card">
+      <form method="post" action="/Zelvox-Shopify-Store/" accept-charset="UTF-8" data-form="customer_login"><div class="field">
+          <label class="field__label" for="CustomerEmail">Email</label>
+          <input class="field__input" type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="CustomerPassword">Password</label>
+          <input class="field__input" type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required>
+        </div>
+
+        <div class="account-actions-row">
+          <button class="btn btn--primary btn--lg" type="submit">Sign in</button>
+          <a href="/Zelvox-Shopify-Store/account/register">Create an account</a>
+        </div>
+      </form>
+    </div>
+
+    <details class="account-card" id="recover">
+      <summary>Forgot your password?</summary>
+      <p class="account-meta">Enter your email and we'll send you a link to reset your password.</p>
+      <form method="post" action="/Zelvox-Shopify-Store/" accept-charset="UTF-8" data-form="recover_customer_password"><div class="field">
+          <label class="field__label" for="RecoverEmail">Email</label>
+          <input class="field__input" type="email" name="email" id="RecoverEmail" autocomplete="email" required>
+        </div>
+        <button class="btn btn--outline" type="submit">Send reset link</button>
+      </form>
+    </details>
+  </div>
+</section>
+
+    </main>
+
+    <footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a href="/Zelvox-Shopify-Store/" class="site-footer__logo"><span class="logo-mark" aria-hidden="true"><span class="logo-mark__glyph"></span></span>
+            <span class="logo-wordmark">Zelvox</span></a><p class="site-footer__about">Premium gadgets and smart technology, curated for people who expect more from their devices.</p><ul class="social-list"></ul></div><div class="site-footer__col" data-block="footer-menu-1">
+          <h3 class="site-footer__heading">Explore</h3>
+          <ul class="site-footer__links"><li><a href="/Zelvox-Shopify-Store/">Home</a></li><li><a href="/Zelvox-Shopify-Store/collections/all">Shop All</a></li><li><a href="/Zelvox-Shopify-Store/collections/smartphones">Smartphones</a></li><li><a href="/Zelvox-Shopify-Store/collections/audio">Audio</a></li><li><a href="/Zelvox-Shopify-Store/collections/smart-devices">Smart Devices</a></li><li><a href="/Zelvox-Shopify-Store/collections/gaming">Gaming</a></li><li><a href="/Zelvox-Shopify-Store/collections/accessories">Accessories</a></li><li><a href="/Zelvox-Shopify-Store/collections/new-arrivals">New Arrivals</a></li></ul>
+        </div><div class="site-footer__col" data-block="footer-menu-2">
+          <h3 class="site-footer__heading">Information</h3>
+          <ul class="site-footer__links"><li><a href="/Zelvox-Shopify-Store/pages/about-us">About Us</a></li><li><a href="/Zelvox-Shopify-Store/pages/faqs">FAQs</a></li><li><a href="/Zelvox-Shopify-Store/pages/contact-us">Contact Us</a></li><li><a href="/Zelvox-Shopify-Store/pages/shipping">Shipping & delivery</a></li><li><a href="/Zelvox-Shopify-Store/pages/returns">Returns & warranty</a></li></ul>
+        </div></div>
+
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">© 2026 Zelvox. All rights reserved.</p><div class="site-footer__payment">
+          <span class="visually-hidden">Payment methods</span>
+          <ul class="payment-list"><li><svg class="payment-icon" width="38" height="24" viewBox="0 0 38 24" fill="none" stroke="currentColor"><rect x="1" y="1" width="36" height="22" rx="4"/><text x="19" y="15" font-size="8" text-anchor="middle" fill="currentColor" stroke="none">VISA</text></svg></li><li><svg class="payment-icon" width="38" height="24" viewBox="0 0 38 24" fill="none" stroke="currentColor"><rect x="1" y="1" width="36" height="22" rx="4"/><text x="19" y="15" font-size="8" text-anchor="middle" fill="currentColor" stroke="none">MASTER</text></svg></li><li><svg class="payment-icon" width="38" height="24" viewBox="0 0 38 24" fill="none" stroke="currentColor"><rect x="1" y="1" width="36" height="22" rx="4"/><text x="19" y="15" font-size="8" text-anchor="middle" fill="currentColor" stroke="none">AMERICAN_EXPRESS</text></svg></li><li><svg class="payment-icon" width="38" height="24" viewBox="0 0 38 24" fill="none" stroke="currentColor"><rect x="1" y="1" width="36" height="22" rx="4"/><text x="19" y="15" font-size="8" text-anchor="middle" fill="currentColor" stroke="none">APPLE_PAY</text></svg></li><li><svg class="payment-icon" width="38" height="24" viewBox="0 0 38 24" fill="none" stroke="currentColor"><rect x="1" y="1" width="36" height="22" rx="4"/><text x="19" y="15" font-size="8" text-anchor="middle" fill="currentColor" stroke="none">GOOGLE_PAY</text></svg></li><li><svg class="payment-icon" width="38" height="24" viewBox="0 0 38 24" fill="none" stroke="currentColor"><rect x="1" y="1" width="36" height="22" rx="4"/><text x="19" y="15" font-size="8" text-anchor="middle" fill="currentColor" stroke="none">SHOPIFY_PAY</text></svg></li></ul>
+        </div></div>
+  </div>
+</footer>
+
+
+<div class="cart-drawer" id="ZelvoxCartDrawer" data-cart-drawer aria-hidden="true">
+  <div class="cart-drawer__backdrop" data-cart-drawer-close></div>
+  <aside
+    class="cart-drawer__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Your cart"
+    tabindex="-1"
+    data-cart-drawer-panel
+  >
+    <header class="cart-drawer__head">
+      <h2 class="cart-drawer__title">
+        Your cart
+        <span class="cart-drawer__count" data-cart-drawer-count>(3)</span>
+      </h2>
+      <button class="icon-btn" type="button" data-cart-drawer-close><svg
+  class="icon icon--close"
+  width="22"
+  height="22"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+<span class="visually-hidden">Close</span>
+      </button>
+    </header>
+
+    <div class="cart-drawer__body" data-cart-drawer-body><ul class="cart-drawer__list" data-cart-drawer-list></ul></div>
+
+    <footer class="cart-drawer__foot" data-cart-drawer-foot >
+      <div class="cart-drawer__note">
+        <label class="visually-hidden" for="CartDrawerNote">Add a note to your order</label>
+        <textarea
+          class="cart-drawer__note-input"
+          id="CartDrawerNote"
+          name="note"
+          placeholder="Gift wrap, delivery notes…"
+          data-cart-note
+        ></textarea>
+      </div>
+      <div class="cart-drawer__subtotal">
+        <span>Subtotal</span>
+        <strong data-cart-drawer-subtotal>$1,458.00</strong>
+      </div>
+      <p class="cart-drawer__hint">Taxes and shipping calculated at checkout</p>
+      <a class="btn btn--primary btn--lg cart-drawer__checkout" href="/Zelvox-Shopify-Store/checkout" data-cart-checkout>
+        <span>Checkout</span><svg
+  class="icon icon--lock"
+  width="16"
+  height="16"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><rect x="4.75" y="10.5" width="14.5" height="9.75" rx="2.25"/><path d="M8.25 10.5V7.75a3.75 3.75 0 0 1 7.5 0v2.75"/></svg>
+</a>
+      <a class="cart-drawer__view-cart" href="/Zelvox-Shopify-Store/cart">View cart</a>
+    </footer>
+  </aside>
+</div>
+<div class="qv" id="ZelvoxQuickView" data-quick-view-modal aria-hidden="true">
+  <div class="qv__backdrop" data-quick-view-close></div>
+  <div class="qv__dialog" role="dialog" aria-modal="true" aria-label="Quick view" tabindex="-1" data-quick-view-dialog>
+    <button class="icon-btn qv__close" type="button" data-quick-view-close><svg
+  class="icon icon--close"
+  width="22"
+  height="22"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+<span class="visually-hidden">Close</span>
+    </button>
+    <div class="qv__inner" data-quick-view-inner>
+      <p class="qv__loading">Loading…</p>
+    </div>
+  </div>
+</div>
+<script>
+      /* Commerce globals: real Shopify money format + translated strings for theme.js.
+         Build the money format from the active currency symbol and JSON-encode it
+         so it is a valid JS string (e.g. "$"). */window.ZelvoxMoney = { format: "${{amount}}", symbol: "$" };
+      window.ZelvoxStrings = {
+        cartEmpty: "Your cart is empty",
+        continueShopping: "Continue shopping",
+        remove: "Remove",
+        cartItemsOne: "1 item",
+        cartItemsMany: "2 items",
+        addressDeleteConfirm: "Are you sure you want to delete this address?",
+        loading: "Loading…",
+        added: "Added to your cart.",
+        addFailed: "Sorry, that item couldn't be added. Please try again.",
+        addToCart: "Add to cart",
+        soldOut: "Sold out",
+        viewDetails: "View details",
+        chooseVariant: "Choose options",
+        stockIn: "In stock and ready to ship",
+        stockOut: "Out of stock",
+        noSuggestions: "No products match that search.",
+        loadFailed: "No results found for \"\". Check the spelling or try another keyword.",
+        view_product: "View product",
+        addToWishlist: "Add to wishlist",
+        removeFromWishlist: "Remove from wishlist"
+      };
+      window.Shopify = window.Shopify || {};
+      window.Shopify.routes = window.Shopify.routes || { root: "/" };
+    </script>
+
+    <script src="/Zelvox-Shopify-Store/assets/theme.js" defer></script>
+  </body>
+</html>

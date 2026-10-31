@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Zelvox responsive check</title>
+    <style>
+      body { margin: 0; background: #16181d; color: #fff; font: 13px/1.4 system-ui, sans-serif; min-width: 1380px; }
+      h2 { margin: 18px 16px 8px; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #8ab4ff; }
+      .frame { display: block; margin: 0 16px 6px; border: 1px solid #333; border-radius: 8px; background: #fff; }
+      .label { margin: 0 16px 4px; color: #9aa4b2; }
+      .row { display: flex; gap: 20px; align-items: flex-start; padding-left: 16px; }
+      .col { flex: 0 0 auto; }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col">
+        <h2>Mobile — 390</h2>
+        <p class="label">390px viewport</p>
+        <iframe class="frame" src="index.html" width="390" height="900"></iframe>
+      </div>
+      <div class="col">
+        <h2>Tablet — 820</h2>
+        <p class="label">820px viewport</p>
+        <iframe class="frame" src="index.html" width="820" height="900"></iframe>
+      </div>
+      <div class="col">
+        <h2>Desktop — 1280</h2>
+        <p class="label">1280px viewport</p>
+        <iframe class="frame" src="index.html" width="1280" height="900"></iframe>
+      </div>
+    </div>
+  </body>
+</html>
